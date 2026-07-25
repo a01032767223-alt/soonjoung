@@ -1,0 +1,1715 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#16233C">
+<meta name="description" content="정보처리기사 필기 문제풀이와 오답노트. 125문항, 5과목, 난이도 3단계.">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" href="./icon-192.png">
+<link rel="apple-touch-icon" href="./icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="정처기 CBT">
+<title>정처기 CBT · 오답노트</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#EEF1F5; --card:#FFFFFF; --ink:#16233C; --soft:#5A6883;
+  --rule:#D3DAE4; --mark:#1F3FBF; --ok:#0B7A55; --no:#C43B2D; --gold:#B58A2B;
+  --sans:'IBM Plex Sans KR',system-ui,sans-serif; --mono:'IBM Plex Mono',monospace;
+  --disp:'Black Han Sans',var(--sans);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{
+  background:var(--paper); color:var(--ink); font-family:var(--sans);
+  font-size:16px; line-height:1.6; padding-bottom:96px;
+  background-image:linear-gradient(var(--rule) 1px,transparent 1px);
+  background-size:100% 44px; background-position:0 -1px;
+}
+.wrap{max-width:560px;margin:0 auto;padding:0 14px}
+button{font-family:inherit;font-size:inherit;color:inherit;cursor:pointer}
+
+/* ── 상단 바 ── */
+.bar{position:sticky;top:0;z-index:20;background:var(--ink);color:#fff;
+  padding:10px 14px calc(10px + env(safe-area-inset-top,0)) 14px;padding-top:calc(10px + env(safe-area-inset-top,0))}
+.bar .in{max-width:560px;margin:0 auto;display:flex;align-items:center;gap:10px}
+.mark-logo{font-family:var(--mono);font-weight:600;font-size:12px;letter-spacing:.14em;opacity:.8}
+.bar .mid{margin-left:auto;font-family:var(--mono);font-size:13px;letter-spacing:.06em}
+.bar .clock{font-family:var(--mono);font-size:13px;background:rgba(255,255,255,.13);padding:2px 8px;border-radius:3px}
+.bar .x{background:none;border:1px solid rgba(255,255,255,.3);color:#fff;border-radius:3px;padding:2px 8px;font-size:12px;font-family:var(--mono)}
+
+/* ── OMR 답안 스트립 (시그니처) ── */
+.omr{background:#fff;border:1px solid var(--rule);border-top:none;padding:10px 12px;
+  display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
+.omr b{display:block;width:100%;text-align:center;font-family:var(--mono);font-size:10px;
+  letter-spacing:.2em;color:var(--soft);font-weight:400;margin-bottom:2px}
+.bub{width:16px;height:16px;border-radius:50%;border:1.5px solid var(--rule);position:relative;transition:.18s}
+.bub.now{border-color:var(--ink);box-shadow:0 0 0 3px rgba(22,35,60,.1)}
+.bub.mk{background:var(--mark);border-color:var(--mark)}
+.bub.ok{background:var(--ok);border-color:var(--ok)}
+.bub.no{background:var(--no);border-color:var(--no)}
+.bub.no::after{content:"";position:absolute;inset:-3px;border-top:1.5px solid var(--no);
+  transform:rotate(-45deg);top:50%}
+
+/* ── 카드 ── */
+.card{background:var(--card);border:1px solid var(--rule);border-radius:4px;padding:16px;margin:14px 0;
+  box-shadow:0 1px 0 rgba(22,35,60,.04)}
+.eyebrow{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.tag{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;padding:3px 7px;border:1px solid var(--rule);
+  border-radius:2px;color:var(--soft);background:#F7F9FB}
+.tag.lv1{background:#EEF6F1;border-color:#BFE0CE;color:#0B7A55}
+.tag.lv2{background:#EFF2FE;border-color:#C6CFF5;color:#1F3FBF}
+.tag.lv3{background:#FDF2EE;border-color:#F2CDBC;color:#B4501F}
+.stars{margin-left:auto;color:var(--gold);font-size:12px;letter-spacing:.05em}
+.qno{font-family:var(--disp);font-size:26px;line-height:1;color:var(--ink);margin-right:2px}
+.qtext{font-size:16.5px;font-weight:500;line-height:1.68;letter-spacing:-.01em;margin:0 0 14px}
+pre{background:#151E33;color:#E4EAF5;font-family:var(--mono);font-size:12.5px;line-height:1.6;
+  padding:12px 13px;border-radius:4px;overflow-x:auto;margin:0 0 14px}
+
+/* ── 선지 ── */
+.ch{display:flex;gap:10px;align-items:flex-start;width:100%;text-align:left;background:#fff;
+  border:1px solid var(--rule);border-radius:4px;padding:11px 12px;margin-bottom:8px;transition:.15s;line-height:1.5}
+.ch:active{transform:scale(.99)}
+.ch .n{flex:0 0 22px;height:22px;border-radius:50%;border:1.5px solid var(--rule);display:grid;place-items:center;
+  font-family:var(--mono);font-size:11px;color:var(--soft);transition:.15s}
+.ch.sel{border-color:var(--mark);background:#F3F5FE}
+.ch.sel .n{background:var(--mark);border-color:var(--mark);color:#fff}
+.ch.rOk{border-color:var(--ok);background:#F0F9F5}
+.ch.rOk .n{background:var(--ok);border-color:var(--ok);color:#fff}
+.ch.rNo{border-color:var(--no);background:#FDF3F2}
+.ch.rNo .n{background:var(--no);border-color:var(--no);color:#fff}
+.ch[disabled]{opacity:1;cursor:default}
+
+/* ── 해설 ── */
+.verdict{font-family:var(--disp);font-size:19px;padding:11px 14px;border-radius:4px;margin:16px 0 4px;letter-spacing:.02em}
+.vOk{background:#0B7A55;color:#fff}
+.vNo{background:#C43B2D;color:#fff}
+.ex{border-top:1px solid var(--rule);margin-top:14px}
+.row{display:grid;grid-template-columns:74px 1fr;gap:12px;padding:12px 0;border-bottom:1px dotted var(--rule)}
+.row:last-child{border-bottom:none}
+.row dt{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;color:var(--soft);padding-top:3px;line-height:1.5}
+.row dd{margin:0;font-size:14.5px;line-height:1.7}
+.row.mn dd{font-weight:700;color:var(--mark);font-size:15.5px}
+.row.mn dt{color:var(--mark)}
+
+/* ── 하단 액션 ── */
+.foot{position:fixed;left:0;right:0;bottom:0;z-index:20;background:rgba(238,241,245,.94);
+  backdrop-filter:blur(8px);border-top:1px solid var(--rule);
+  padding:10px 14px calc(10px + env(safe-area-inset-bottom,0))}
+.foot .in{max-width:560px;margin:0 auto;display:flex;gap:8px}
+.btn{flex:1;border:none;border-radius:4px;padding:14px;font-weight:700;font-size:15px;letter-spacing:-.01em}
+.btn.p{background:var(--ink);color:#fff}
+.btn.p[disabled]{background:#B9C2D0;color:#fff}
+.btn.g{background:#fff;border:1px solid var(--rule);color:var(--ink);font-weight:600}
+
+/* ── 홈 ── */
+h1{font-family:var(--disp);font-size:31px;line-height:1.2;letter-spacing:-.01em;margin:22px 0 4px}
+h1 em{font-style:normal;color:var(--mark)}
+.lede{color:var(--soft);font-size:14px;margin:0 0 18px}
+.menu{display:block;width:100%;text-align:left;background:#fff;border:1px solid var(--rule);border-radius:4px;
+  padding:15px 16px;margin-bottom:9px}
+.menu .t{font-weight:700;font-size:16px;display:flex;align-items:center;gap:8px}
+.menu .t .k{font-family:var(--mono);font-size:11px;color:var(--soft);margin-left:auto;font-weight:400}
+.menu .d{font-size:13px;color:var(--soft);margin-top:3px}
+.menu:disabled{opacity:.45}
+h2{font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--soft);font-weight:600;
+  margin:26px 0 10px;text-transform:uppercase}
+
+/* ── 통계/결과 ── */
+.score{font-family:var(--disp);font-size:74px;line-height:.92;letter-spacing:-.02em}
+.score span{font-size:22px;color:var(--soft)}
+.judge{display:inline-block;font-weight:700;font-size:14px;padding:5px 11px;border-radius:3px;margin-top:8px}
+.j1{background:#0B7A55;color:#fff}.j2{background:#B58A2B;color:#fff}.j3{background:#C43B2D;color:#fff}
+.sb{margin:11px 0}
+.sb .lb{display:flex;font-size:13.5px;margin-bottom:5px}
+.sb .lb b{margin-left:auto;font-family:var(--mono);font-weight:600}
+.track{height:8px;background:#E3E8EF;border-radius:99px;overflow:hidden;position:relative}
+.fill{height:100%;background:var(--ink);border-radius:99px}
+.fill.bad{background:var(--no)}
+.track::after{content:"";position:absolute;left:40%;top:-3px;bottom:-3px;width:1px;background:var(--soft);opacity:.5}
+.alert{background:#FDF3F2;border:1px solid #F0C9C4;border-left:3px solid var(--no);border-radius:3px;
+  padding:12px 14px;font-size:14px;margin:12px 0;line-height:1.65}
+.alert b{color:var(--no)}
+.note{background:#fff;border:1px solid var(--rule);border-radius:4px;padding:12px 14px;margin-bottom:8px}
+.note .h{display:flex;align-items:center;font-size:14.5px;font-weight:600}
+.note .h b{margin-left:auto;font-family:var(--mono);font-size:12px;color:var(--no)}
+.note .s{font-size:12.5px;color:var(--soft);margin-top:2px}
+.acc{background:#fff;border:1px solid var(--rule);border-radius:4px;margin-bottom:8px;overflow:hidden}
+.acc>button{display:flex;gap:9px;width:100%;text-align:left;background:none;border:none;padding:13px 14px;font-size:14px;align-items:flex-start}
+.acc>button .n{font-family:var(--mono);font-size:11px;color:var(--no);flex:0 0 auto;padding-top:2px}
+.acc .body{display:none;padding:0 14px 6px}
+.acc.open .body{display:block}
+.empty{text-align:center;color:var(--soft);font-size:14px;padding:30px 10px;line-height:1.7}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<div class="bar"><div class="in">
+  <span class="mark-logo">정처기 CBT</span>
+  <span class="mid" id="mid"></span>
+  <span class="clock" id="clock" hidden></span>
+  <button class="x" id="quit" hidden>나가기</button>
+</div></div>
+
+<div id="omrBox"></div>
+<div class="wrap" id="app"></div>
+<div class="foot" id="foot" hidden><div class="in" id="footIn"></div></div>
+
+<script>
+/* ══════════ 과목 ══════════ */
+const SUBS={
+ S1:'소프트웨어설계', S2:'소프트웨어개발', S3:'데이터베이스구축',
+ S4:'프로그래밍언어활용', S5:'정보시스템구축관리'
+};
+
+/* ══════════ 문제 은행 ══════════ */
+const Q=[
+/* ─── 1과목 소프트웨어설계 ─── */
+{id:1,sub:'S1',topic:'UML 관계',freq:5,d:1,
+ q:'UML에서 전체와 부분의 관계이며, 부분이 전체와 생명주기를 함께하는 강한 소유 관계는?',
+ ch:['연관(Association)','집합(Aggregation)','복합(Composition)','의존(Dependency)'],a:2,
+ why:'복합 관계는 전체가 없어지면 부분도 함께 없어집니다. 자동차와 엔진처럼 부분이 독립적으로 존재할 수 없는 관계이며, UML에서는 속이 찬 검은 마름모(◆)로 표기합니다.',
+ bad:'① 연관은 단순히 서로 사용하는 관계(실선). ② 집합은 전체·부분 관계지만 부분이 독립 생존 가능(빈 마름모 ◇). ④ 의존은 일시적으로만 참조하는 관계(점선 화살표).',
+ mn:'속 찬 마름모 = 죽음까지 함께 = Composition / 빈 마름모 = 헤어질 수 있다 = Aggregation',
+ pt:'"생명주기를 함께한다", "전체가 삭제되면 부분도 삭제된다"는 표현이 나오면 무조건 Composition.',
+ rel:'일반화(상속, 빈 삼각형 화살표), 실체화(Realization, 점선+빈 삼각형)까지 6가지 관계를 세트로 외우세요.'},
+
+{id:2,sub:'S1',topic:'디자인패턴',freq:5,d:1,
+ q:'다음 중 생성(Creational) 패턴이 아닌 것은?',
+ ch:['Singleton','Builder','Prototype','Adapter'],a:3,
+ why:'Adapter는 서로 다른 인터페이스를 맞춰주는 구조(Structural) 패턴입니다. 생성 패턴은 객체를 "어떻게 만들까"를 다룹니다.',
+ bad:'① Singleton은 인스턴스를 하나만 생성. ② Builder는 복잡한 객체를 단계적으로 생성. ③ Prototype은 원본을 복제해서 생성. 모두 생성 패턴입니다.',
+ mn:'생성 5개 → "싱빌프팩앱" (Singleton·Builder·Prototype·Factory Method·Abstract Factory)',
+ pt:'GoF 23개 = 생성 5 + 구조 7 + 행위 11. 개수까지 물어보는 문제가 나옵니다.',
+ rel:'구조 7개 → "어브컴데퍼플프" (Adapter·Bridge·Composite·Decorator·Facade·Flyweight·Proxy)'},
+
+{id:3,sub:'S1',topic:'DFD',freq:4,d:2,
+ q:'자료흐름도(DFD)의 구성요소가 아닌 것은?',
+ ch:['Process','Data Flow','Data Dictionary','Terminator'],a:2,
+ why:'자료사전(Data Dictionary)은 DFD에 나오는 자료의 의미와 자료량을 정의하는 별도 문서입니다. DFD 그림 안의 기호가 아닙니다.',
+ bad:'① 처리(원), ② 자료흐름(화살표), ④ 단말/종착지(사각형)는 DFD 4대 요소에 포함됩니다. 나머지 하나는 자료저장소(Data Store, 이중선)입니다.',
+ mn:'DFD 4요소 → "처흐저단" (처리·흐름·저장소·단말)',
+ pt:'DFD는 구조적 분석 도구, 자료사전은 명세 도구로 역할이 다릅니다. 자주 섞어서 함정을 만듭니다.',
+ rel:'자료사전 기호: = 정의, + 연결, ( ) 생략, { } 반복, [ | ] 선택, ** 주석'},
+
+{id:4,sub:'S1',topic:'결합도·응집도',freq:5,d:2,
+ q:'결합도가 가장 약한(=가장 바람직한) 것은?',
+ ch:['내용 결합도','공통 결합도','제어 결합도','자료 결합도'],a:3,
+ why:'자료 결합도는 매개변수로 필요한 값만 주고받는 가장 느슨한 결합입니다. 좋은 설계는 결합도는 낮게, 응집도는 높게입니다.',
+ bad:'① 내용 결합도는 다른 모듈 내부를 직접 참조하는 최악의 결합. ② 공통 결합도는 전역변수 공유. ③ 제어 결합도는 제어 플래그를 넘겨 남의 흐름을 조종하는 관계.',
+ mn:'결합도 약→강 순서 → "자스제외공내" (자료·스탬프·제어·외부·공통·내용)',
+ pt:'"가장 강한 결합도"를 물으면 내용(Content), "가장 약한"을 물으면 자료(Data). 반대로 묻는 함정이 매우 흔합니다.',
+ rel:'응집도 강→약 → "기순교절시논우" (기능적·순차적·교환적·절차적·시간적·논리적·우연적)'},
+
+{id:5,sub:'S1',topic:'결합도·응집도',freq:5,d:2,
+ q:'응집도가 가장 강한(=가장 바람직한) 것은?',
+ ch:['우연적 응집도','논리적 응집도','기능적 응집도','절차적 응집도'],a:2,
+ why:'기능적 응집도는 모듈 안의 모든 요소가 하나의 기능만 수행하는 상태로 가장 이상적입니다.',
+ bad:'① 우연적 응집도는 아무 관련 없는 것들을 모아둔 최악. ② 논리적은 비슷한 성격만 묶은 것. ④ 절차적은 순서대로 수행되지만 서로 다른 기능들의 묶음.',
+ mn:'응집도 강→약 → "기순교절시논우"',
+ pt:'결합도와 응집도는 순서 방향이 반대로 출제됩니다. "기순교절시논우"는 강한 것부터임을 반드시 기억하세요.',
+ rel:'모듈화의 목표 = 결합도 최소화 + 응집도 최대화 + 재사용성 향상 + Fan-in 높이고 Fan-out 낮추기'},
+
+{id:6,sub:'S1',topic:'UML 다이어그램',freq:4,d:2,
+ q:'다음 중 동적(행위) 다이어그램에 해당하는 것은?',
+ ch:['클래스 다이어그램','객체 다이어그램','컴포넌트 다이어그램','유스케이스 다이어그램'],a:3,
+ why:'유스케이스 다이어그램은 사용자(액터)와 시스템의 상호작용, 즉 시스템의 행위를 표현하므로 동적 다이어그램입니다.',
+ bad:'①②③은 시스템의 구성과 구조를 나타내는 정적(구조) 다이어그램입니다.',
+ mn:'동적 7개 → "유시커상활타상" 중 핵심 4개만: 유스케이스·시퀀스·상태·활동',
+ pt:'정적 6개(클래스·객체·컴포넌트·배치·복합체·패키지) / 동적 7개(유스케이스·시퀀스·커뮤니케이션·상태·활동·상호작용개요·타이밍).',
+ rel:'시퀀스 다이어그램 구성요소: 액터, 객체, 생명선(Lifeline), 실행상자, 메시지'},
+
+{id:7,sub:'S1',topic:'럼바우 분석',freq:4,d:2,
+ q:'럼바우(Rumbaugh)의 객체지향 분석 기법에서 3가지 모델링에 해당하지 않는 것은?',
+ ch:['객체 모델링','동적 모델링','기능 모델링','구조 모델링'],a:3,
+ why:'럼바우 기법은 객체 → 동적 → 기능 순서의 3가지 모델링으로 구성됩니다. 구조 모델링은 포함되지 않습니다.',
+ bad:'① 객체 모델링은 객체 다이어그램으로 정보(Object) 모델링이라고도 합니다. ② 동적 모델링은 상태 다이어그램. ③ 기능 모델링은 자료흐름도(DFD)로 표현합니다.',
+ mn:'럼바우 → "객동기" (객체·동적·기능) 순서까지 이대로',
+ pt:'"정보 모델링 = 객체 모델링"이라는 다른 이름으로도 출제됩니다.',
+ rel:'객체지향 분석 기법: 럼바우(객동기), 부치(Booch, 미시적+거시적), 야콥슨(Use Case 중심), 코드-야돈, Wirfs-Brock'},
+
+{id:8,sub:'S1',topic:'미들웨어',freq:3,d:2,
+ q:'응용 프로그램이 데이터베이스에 접속할 수 있도록 표준 인터페이스를 제공하는 미들웨어는?',
+ ch:['WAS','RPC','ODBC','MOM'],a:2,
+ why:'ODBC(Open Database Connectivity)는 DBMS 종류와 무관하게 동일한 방식으로 DB에 접속하게 해주는 표준 API입니다.',
+ bad:'① WAS는 동적 웹 처리용 서버. ② RPC는 원격 프로시저 호출. ④ MOM은 메시지 기반 비동기 처리 미들웨어입니다.',
+ mn:'DB 접속 = ODBC의 "DBC"가 DataBase Connectivity',
+ pt:'미들웨어 종류별 역할 1:1 매칭 문제로 나옵니다. DB↔ODBC/JDBC, 메시지↔MOM, 원격호출↔RPC, 트랜잭션↔TP-Monitor.',
+ rel:'미들웨어는 클라이언트와 서버 사이의 소프트웨어이며, 미들웨어 솔루션의 정의는 명세서에 포함되지 않습니다.'},
+
+{id:9,sub:'S1',topic:'디자인패턴',freq:5,d:2,
+ q:'한 객체의 상태가 변하면 그 객체에 의존하는 다른 객체들에게 자동으로 통보하는 패턴은?',
+ ch:['Observer','Strategy','Decorator','Facade'],a:0,
+ why:'Observer는 발행-구독(Publish-Subscribe) 구조로, 주체(Subject)의 상태 변화를 감시자(Observer)들에게 자동 통보합니다.',
+ bad:'② Strategy는 알고리즘을 캡슐화해 교체 가능하게 함. ③ Decorator는 기능을 동적으로 덧붙임. ④ Facade는 복잡한 서브시스템에 단순한 창구를 제공합니다.',
+ mn:'Observer = "구독 알림" / Strategy = "전략 교체" / Decorator = "덧붙이기" / Facade = "단일 창구"',
+ pt:'행위 패턴 중 Observer, Strategy, Template Method, State, Command가 가장 자주 출제됩니다.',
+ rel:'Singleton = 인스턴스 1개, Proxy = 대리 접근, Bridge = 구현부 분리, Composite = 트리 구조'},
+
+/* ─── 2과목 소프트웨어개발 ─── */
+{id:10,sub:'S2',topic:'정렬 알고리즘',freq:5,d:2,
+ q:'데이터 8, 3, 4, 9, 7을 선택 정렬(오름차순)로 정렬할 때 1회전 후 결과는?',
+ ch:['3, 8, 4, 9, 7','3, 4, 8, 7, 9','3, 4, 7, 8, 9','8, 3, 4, 7, 9'],a:0,
+ why:'선택 정렬 1회전은 전체에서 최솟값 3을 찾아 맨 앞자리 8과 교환합니다. 8은 3이 있던 2번째 자리로 이동하므로 3, 8, 4, 9, 7이 됩니다.',
+ bad:'② 는 2회전 결과. ③ 은 정렬 완료 상태. ④ 는 교환 대상이 잘못된 경우입니다.',
+ mn:'선택 정렬 = "최솟값 찾아서 앞자리와 맞교환" / 버블 정렬 = "옆 사람과 계속 비교"',
+ pt:'회전 수를 묻는 문제는 반드시 손으로 한 줄씩 써 내려가세요. 선택은 자리를 정하고, 버블은 큰 값이 뒤로 밀립니다.',
+ rel:'삽입 정렬 = 앞쪽 정렬된 구간에 끼워넣기 / 시간복잡도 선택·버블·삽입 모두 최악 O(n²)'},
+
+{id:11,sub:'S2',topic:'자료구조',freq:4,d:2,
+ q:'스택(Stack)의 응용 분야가 아닌 것은?',
+ ch:['재귀호출','후위표기식 연산','서브루틴 복귀주소 저장','프린터 스풀(Spool)'],a:3,
+ why:'프린터 스풀은 먼저 요청한 작업을 먼저 인쇄하는 FIFO 구조이므로 큐(Queue)의 응용입니다.',
+ bad:'①②③ 모두 마지막에 들어온 것을 먼저 꺼내는 LIFO 특성이 필요한 작업으로 스택의 대표 응용입니다.',
+ mn:'스택 = LIFO = "재귀·수식·복귀주소" / 큐 = FIFO = "스풀·버퍼·작업스케줄링"',
+ pt:'스택과 큐의 응용 분야를 서로 바꿔 놓는 함정이 매년 나옵니다.',
+ rel:'데크(Deque)는 양쪽 삽입·삭제 가능, 트리는 비선형 구조. 선형 구조 = 배열·스택·큐·데크·리스트'},
+
+{id:12,sub:'S2',topic:'테스트 기법',freq:5,d:1,
+ q:'다음 중 화이트박스 테스트 기법이 아닌 것은?',
+ ch:['기초 경로 검사','조건 검사','데이터 흐름 검사','동등 분할 검사'],a:3,
+ why:'동등 분할(Equivalence Partitioning)은 입력값을 유효/무효 그룹으로 나눠 대표값만 테스트하는 블랙박스 기법입니다.',
+ bad:'①②③은 프로그램 내부 논리 구조와 경로를 들여다보는 화이트박스 기법입니다.',
+ mn:'블랙박스 → "동경결상원비" (동등분할·경계값·결정테이블·상태전이·원인결과·비교검사)',
+ pt:'화이트박스는 "구조·경로·조건·루프", 블랙박스는 "입력값 기준"으로 구분하면 거의 틀리지 않습니다.',
+ rel:'화이트박스 검증 기준 강도 순: 문장 → 분기(결정) → 조건 → 분기/조건 → 변형 조건/결정 → 다중 조건'},
+
+{id:13,sub:'S2',topic:'형상관리',freq:4,d:2,
+ q:'소프트웨어 형상관리 절차를 올바른 순서로 나열한 것은?',
+ ch:['형상식별 → 형상통제 → 형상감사 → 형상기록','형상통제 → 형상식별 → 형상기록 → 형상감사',
+     '형상식별 → 형상감사 → 형상통제 → 형상기록','형상기록 → 형상식별 → 형상통제 → 형상감사'],a:0,
+ why:'무엇을 관리할지 정하고(식별), 변경 요청을 심의해 승인하고(통제), 기준선대로 되었는지 확인하고(감사), 이력을 남깁니다(기록).',
+ bad:'식별이 가장 먼저, 기록이 가장 마지막이라는 두 축만 잡으면 나머지 선택지는 모두 걸러집니다.',
+ mn:'형상관리 → "식통감기" (식별·통제·감사·기록)',
+ pt:'형상통제 단계에서 형상통제위원회(CCB)의 심의·승인이 이루어진다는 점이 함께 출제됩니다.',
+ rel:'형상관리 도구: CVS, SVN(중앙집중형), Git(분산형). 형상관리 항목 = 소스코드 + 문서 + 요구사항 명세서'},
+
+{id:14,sub:'S2',topic:'이진 검색',freq:3,d:2,
+ q:'정렬된 데이터 8, 15, 22, 30, 41, 55, 67에서 이진 검색으로 41을 찾을 때 비교 횟수는?',
+ ch:['1회','2회','3회','4회'],a:2,
+ why:'1회: 중간값 30과 비교(41>30, 오른쪽). 2회: 남은 41,55,67의 중간값 55와 비교(41<55, 왼쪽). 3회: 41과 비교하여 발견. 총 3회입니다.',
+ bad:'중간값 위치를 (첫+끝)/2로 계산하지 않고 눈대중으로 잡으면 2회나 4회가 나옵니다.',
+ mn:'이진 검색 = "중간값 → 반 버리기" 반복 / 중간 위치 = (low+high)/2 (소수점 버림)',
+ pt:'이진 검색은 반드시 정렬된 데이터에만 적용 가능하며 시간복잡도는 O(log₂n)입니다.',
+ rel:'순차 검색 O(n), 이진 검색 O(log₂n), 해싱 O(1). 이진 검색 트리 탐색도 평균 O(log₂n)'},
+
+{id:15,sub:'S2',topic:'정렬 알고리즘',freq:5,d:2,
+ q:'데이터 9, 6, 7, 3, 5를 버블 정렬(오름차순)로 정렬할 때 1회전 후 결과는?',
+ ch:['6, 7, 3, 5, 9','6, 9, 7, 3, 5','3, 5, 6, 7, 9','6, 7, 9, 3, 5'],a:0,
+ why:'인접한 두 값을 차례로 비교·교환하면 9가 계속 뒤로 밀려 맨 끝에 도착합니다. (9,6)→(9,7)→(9,3)→(9,5) 모두 교환되어 6,7,3,5,9가 됩니다.',
+ bad:'② 는 첫 비교만 한 상태. ③ 은 정렬 완료. ④ 는 중간에 교환을 멈춘 경우입니다.',
+ mn:'버블 정렬 1회전 = "가장 큰 값이 맨 뒤에 확정"',
+ pt:'선택 정렬 1회전은 최솟값이 앞에, 버블 정렬 1회전은 최댓값이 뒤에 확정됩니다. 이 한 줄이 정렬 문제의 절반입니다.',
+ rel:'퀵 정렬 평균 O(nlog₂n)·최악 O(n²), 힙·병합 정렬은 항상 O(nlog₂n)'},
+
+{id:16,sub:'S2',topic:'통합 테스트',freq:5,d:1,
+ q:'하향식(Top-down) 통합 테스트에서 아직 완성되지 않은 하위 모듈을 대신하는 것은?',
+ ch:['드라이버(Driver)','스텁(Stub)','스켈레톤(Skeleton)','더미(Dummy)'],a:1,
+ why:'하향식은 상위 모듈부터 검사하므로 아직 아래쪽 모듈이 없습니다. 이때 최소한의 기능만 대신 수행해 주는 임시 모듈이 스텁입니다.',
+ bad:'① 드라이버는 상향식에서 상위 모듈을 대신하는 시험용 호출 프로그램입니다.',
+ mn:'"위에서 아래로 → 아래가 없으니 스텁" / "아래에서 위로 → 위가 없으니 드라이버"',
+ pt:'하향식-스텁, 상향식-드라이버 조합을 반대로 제시하는 함정이 반드시 나옵니다.',
+ rel:'혼합식(샌드위치) 통합, 빅뱅 테스트. 테스트 순서: 단위 → 통합 → 시스템 → 인수'},
+
+{id:17,sub:'S2',topic:'소프트웨어 재공학',freq:3,d:2,
+ q:'소프트웨어 재공학(Re-engineering)의 주요 활동에 해당하지 않는 것은?',
+ ch:['분석(Analysis)','이식(Migration)','재구성(Restructuring)','프로토타이핑(Prototyping)'],a:3,
+ why:'재공학의 4대 활동은 분석·재구성·역공학·이식입니다. 프로토타이핑은 개발 방법론이지 재공학 활동이 아닙니다.',
+ bad:'① 기존 시스템 파악, ② 다른 환경으로 옮김, ③ 기능은 유지하고 구조 개선. 모두 재공학 활동입니다.',
+ mn:'재공학 → "분재역이" (분석·재구성·역공학·이식)',
+ pt:'역공학(Reverse Engineering)은 완성된 프로그램에서 설계 정보를 추출하는 활동으로 단독 출제 빈도가 높습니다.',
+ rel:'재공학의 목표: 유지보수성 향상, 비용 절감, 수명 연장. 소프트웨어 위기 극복 방안 중 하나'},
+
+{id:18,sub:'S2',topic:'EAI',freq:3,d:2,
+ q:'EAI 구축 유형 중 중앙에 허브 시스템을 두고 모든 애플리케이션을 연결하는 방식은?',
+ ch:['Point-to-Point','Hub & Spoke','Message Bus','Hybrid'],a:1,
+ why:'Hub & Spoke는 중앙 허브를 통해 데이터를 중계하므로 확장과 유지보수가 쉽지만 허브 장애 시 전체가 마비됩니다.',
+ bad:'① 1:1 직접 연결로 확장성이 최악. ③ 미들웨어 버스를 두는 방식. ④ Hub&Spoke와 Message Bus를 결합한 방식입니다.',
+ mn:'허브 = "자전거 바퀴 축(Hub)과 바퀴살(Spoke)"',
+ pt:'"중앙 집중", "단일 장애점"이라는 단어가 보이면 Hub & Spoke입니다.',
+ rel:'ESB는 서비스 중심의 느슨한 결합 아키텍처로 EAI보다 표준 지향적입니다.'},
+
+{id:19,sub:'S2',topic:'시간복잡도',freq:4,d:1,
+ q:'퀵 정렬(Quick Sort)의 평균 시간복잡도는?',
+ ch:['O(n)','O(nlog₂n)','O(n²)','O(log₂n)'],a:1,
+ why:'퀵 정렬은 피벗을 기준으로 절반씩 나누므로 분할 깊이가 log₂n이고 각 단계에서 n번 비교하여 평균 O(nlog₂n)입니다.',
+ bad:'③ O(n²)은 피벗이 최악으로 선택될 때의 복잡도로, "최악"을 물을 때의 정답입니다.',
+ mn:'"퀵은 평균 nlogn, 최악 n²" / "힙·병합은 언제나 nlogn"',
+ pt:'평균과 최악을 바꿔 묻는 문제가 흔합니다. 퀵 정렬만 평균과 최악이 다르다는 점이 핵심입니다.',
+ rel:'선택·버블·삽입 최악 O(n²) / 힙·병합·퀵(평균) O(nlog₂n) / 이진검색 O(log₂n)'},
+
+/* ─── 3과목 데이터베이스구축 ─── */
+{id:20,sub:'S3',topic:'정규화',freq:5,d:1,
+ q:'부분 함수적 종속을 제거하여 도달하는 정규형은?',
+ ch:['1NF','2NF','3NF','BCNF'],a:1,
+ why:'2정규형은 기본키의 일부에만 종속되는 속성(부분 함수적 종속)을 분리한 상태입니다.',
+ bad:'① 1NF는 도메인이 원자값. ③ 3NF는 이행적 종속 제거. ④ BCNF는 결정자가 모두 후보키인 상태입니다.',
+ mn:'정규화 → "도부이결다조" (원자값·부분종속 제거·이행종속 제거·결정자·다치종속·조인종속)',
+ pt:'"제거하는 이상 현상"을 정규형별로 1:1 매칭하는 문제가 매회 출제됩니다. 순서만 외워도 절반은 맞습니다.',
+ rel:'이상 현상 3가지: 삽입 이상, 삭제 이상, 갱신 이상. 정규화의 목적은 중복 최소화와 이상 현상 제거'},
+
+{id:21,sub:'S3',topic:'DCL',freq:5,d:1,
+ q:'데이터베이스 사용자에게 권한을 부여하는 SQL 명령은?',
+ ch:['COMMIT','GRANT','ROLLBACK','UPDATE'],a:1,
+ why:'GRANT는 권한 부여, REVOKE는 권한 회수를 담당하는 DCL(데이터 제어어) 명령입니다.',
+ bad:'① COMMIT과 ③ ROLLBACK은 트랜잭션 제어(TCL/DCL) 명령, ④ UPDATE는 데이터 조작어(DML)입니다.',
+ mn:'DCL → "그리커롤" (GRANT·REVOKE·COMMIT·ROLLBACK) / DDL → "크알드" (CREATE·ALTER·DROP) / DML → "삽삭갱검" (INSERT·DELETE·UPDATE·SELECT)',
+ pt:'DDL·DML·DCL 분류 문제는 거의 매회 나옵니다. TRUNCATE는 DDL이라는 점도 함께 기억하세요.',
+ rel:'GRANT SELECT ON 학생 TO 홍길동 WITH GRANT OPTION → 받은 권한을 다시 남에게 줄 수 있음'},
+
+{id:22,sub:'S3',topic:'트랜잭션',freq:5,d:1,
+ q:'트랜잭션의 특성(ACID)에 해당하지 않는 것은?',
+ ch:['원자성(Atomicity)','일관성(Consistency)','병행성(Concurrency)','지속성(Durability)'],a:2,
+ why:'ACID는 원자성·일관성·격리성(Isolation)·지속성입니다. 병행성은 여러 트랜잭션을 동시에 처리하는 성질로 ACID가 아닙니다.',
+ bad:'격리성(고립성) 대신 병행성을 끼워 넣는 것이 이 문제의 함정입니다.',
+ mn:'ACID → "원일고영" (원자성·일관성·고립성·영속성)',
+ pt:'"모두 반영되거나 전혀 반영되지 않는다" = 원자성, "다른 트랜잭션이 끼어들 수 없다" = 격리성으로 설명형 문제가 나옵니다.',
+ rel:'병행제어를 하지 않으면 갱신 분실, 모순성, 연쇄 복귀, 비완료 의존성 문제가 발생합니다.'},
+
+{id:23,sub:'S3',topic:'키(Key)',freq:5,d:1,
+ q:'후보키(Candidate Key)가 반드시 만족해야 하는 두 가지 성질은?',
+ ch:['유일성, 최소성','유일성, 무결성','최소성, 참조성','무결성, 참조성'],a:0,
+ why:'후보키는 튜플을 하나만 구별할 수 있어야 하고(유일성), 그 키에서 어떤 속성을 빼면 유일성이 깨져야 합니다(최소성).',
+ bad:'무결성과 참조성은 제약조건 개념이며 키의 성질이 아닙니다.',
+ mn:'후보키 = "유일 + 최소" / 슈퍼키 = "유일성만 있고 최소성 없음"',
+ pt:'슈퍼키는 최소성을 만족하지 않는다는 점, 대체키는 후보키에서 기본키를 뺀 나머지라는 점이 세트로 나옵니다.',
+ rel:'키 종류: 기본키(PK, NULL 불가·중복 불가), 후보키, 슈퍼키, 대체키, 외래키(FK, 참조 무결성)'},
+
+{id:24,sub:'S3',topic:'정규화',freq:5,d:2,
+ q:'이행적 함수 종속 관계를 제거하여 도달하는 정규형은?',
+ ch:['1NF','2NF','3NF','BCNF'],a:2,
+ why:'A→B, B→C이므로 A→C가 성립하는 관계를 이행적 종속이라 하며, 이를 분리하면 3정규형입니다.',
+ bad:'② 2NF는 부분 종속 제거, ④ BCNF는 모든 결정자가 후보키인 상태(강한 3NF)입니다.',
+ mn:'"도부이결다조" 중 세 번째 = 이행 = 3NF',
+ pt:'2NF와 3NF를 바꿔 묻는 문제가 가장 많이 틀립니다. 부분=2, 이행=3으로 숫자와 붙여 외우세요.',
+ rel:'4NF는 다치 종속 제거, 5NF는 조인 종속 제거. 반정규화는 성능을 위해 의도적으로 중복을 허용하는 것'},
+
+{id:25,sub:'S3',topic:'SQL',freq:5,d:1,
+ q:'GROUP BY로 그룹화한 결과에 조건을 지정할 때 사용하는 절은?',
+ ch:['WHERE','HAVING','ORDER BY','DISTINCT'],a:1,
+ why:'WHERE는 그룹화 전 개별 행을 걸러내고, HAVING은 그룹화 후 집계 결과를 걸러냅니다. 따라서 COUNT(*)>=2 같은 조건은 HAVING에 씁니다.',
+ bad:'③ ORDER BY는 정렬, ④ DISTINCT는 중복 제거입니다.',
+ mn:'"행은 WHERE, 그룹은 HAVING"',
+ pt:'SQL 실행 순서: FROM → WHERE → GROUP BY → HAVING → SELECT → ORDER BY. 이 순서 문제도 출제됩니다.',
+ rel:'집계 함수: COUNT, SUM, AVG, MAX, MIN. NULL은 COUNT(*)에는 포함되고 COUNT(열)에는 제외됩니다.'},
+
+{id:26,sub:'S3',topic:'뷰(View)',freq:4,d:3,
+ q:'뷰(View)에 대한 설명으로 옳지 않은 것은?',
+ ch:['하나 이상의 기본 테이블로부터 유도된 가상 테이블이다',
+     '뷰의 정의를 변경할 때는 ALTER VIEW 문을 사용한다',
+     '뷰를 통해 데이터에 접근하면 접근 제어와 보안에 유리하다',
+     '뷰가 정의된 기본 테이블이 삭제되면 뷰도 자동으로 삭제된다'],a:1,
+ why:'뷰는 ALTER로 정의를 변경할 수 없습니다. 반드시 DROP VIEW로 삭제한 뒤 다시 CREATE VIEW로 만들어야 합니다.',
+ bad:'①③④는 모두 뷰의 정확한 특징입니다. 특히 ④는 시험에 자주 나오는 뷰의 단점입니다.',
+ mn:'뷰는 "수술 불가, 재수술만 가능" → ALTER ✕, DROP 후 CREATE ○',
+ pt:'뷰의 단점 3가지: ALTER 불가, 독립적인 인덱스 생성 불가, 삽입·삭제·갱신 연산에 제약이 있음.',
+ rel:'뷰의 장점: 논리적 독립성 제공, 질의 단순화, 보안성 향상'},
+
+{id:27,sub:'S3',topic:'관계대수',freq:4,d:2,
+ q:'관계대수의 순수 관계 연산자에 해당하지 않는 것은?',
+ ch:['Select(σ)','Project(π)','Join(⋈)','Cartesian Product(×)'],a:3,
+ why:'카티션 프로덕트는 합집합·교집합·차집합과 함께 일반 집합 연산자에 속합니다.',
+ bad:'①②③과 Division(÷)이 순수 관계 연산자 4가지입니다.',
+ mn:'순수 관계 연산자 → "셀프조디" (Select·Project·Join·Division)',
+ pt:'"순수 관계 연산자가 아닌 것"으로 카티션 프로덕트를 넣는 문제가 반복 출제됩니다.',
+ rel:'Select는 행(수평) 추출 σ, Project는 열(수직) 추출 π. 관계대수는 절차적, 관계해석은 비절차적 언어'},
+
+{id:28,sub:'S3',topic:'병행제어',freq:4,d:2,
+ q:'다음 중 병행제어 기법에 해당하지 않는 것은?',
+ ch:['로킹(Locking)','타임스탬프 순서','낙관적 검증','체크포인트'],a:3,
+ why:'체크포인트는 장애 발생 시 복구 시점을 기록하는 회복(Recovery) 기법입니다.',
+ bad:'①②③과 다중 버전 기법이 병행제어 4대 기법입니다.',
+ mn:'병행제어 → "로타다낙" (로킹·타임스탬프·다중버전·낙관적검증)',
+ pt:'회복 기법(로그 기반·체크포인트·그림자 페이징)과 병행제어 기법을 섞어 놓는 함정이 나옵니다.',
+ rel:'로킹 단위가 커지면 병행성은 낮아지고 오버헤드는 줄어듭니다. 2단계 로킹 규약(확장·수축 단계)도 함께 학습.'},
+
+{id:29,sub:'S3',topic:'E-R 모델',freq:3,d:1,
+ q:'E-R 다이어그램에서 개체 타입(Entity Type)을 표기하는 기호는?',
+ ch:['사각형','타원','다이아몬드','밑줄'],a:0,
+ why:'개체는 사각형, 속성은 타원, 관계는 다이아몬드(마름모), 기본키 속성은 밑줄로 표기합니다.',
+ bad:'② 타원은 속성, ③ 다이아몬드는 관계, ④ 밑줄은 기본키 속성 표시입니다.',
+ mn:'"개사 속타 관다 키밑" (개체-사각형, 속성-타원, 관계-다이아몬드, 키-밑줄)',
+ pt:'기호와 요소를 1:1로 묻는 단순 암기 문제이므로 놓치면 아깝습니다.',
+ rel:'다중값 속성은 이중 타원, 유도 속성은 점선 타원, 약한 개체는 이중 사각형으로 표기'},
+
+/* ─── 4과목 프로그래밍언어활용 ─── */
+{id:30,sub:'S4',topic:'C 포인터',freq:5,d:2,
+ q:'다음 C 프로그램의 출력 결과는?',
+ code:`int main() {
+    int a = 5, b = 3;
+    int *p = &a, *q = &b;
+    *p = *p + *q;
+    *q = *p - *q;
+    printf("%d %d", a, b);
+}`,
+ ch:['5 3','8 5','8 3','5 8'],a:1,
+ why:'p는 a를, q는 b를 가리킵니다. *p = 5+3 = 8이므로 a는 8이 됩니다. 이어서 *q = 8-3 = 5이므로 b는 5가 됩니다. 따라서 "8 5"가 출력됩니다.',
+ bad:'첫 줄에서 이미 a가 8로 바뀐 것을 반영하지 않고 원래 값 5로 계산하면 ③ 또는 ④가 나옵니다.',
+ mn:'포인터 문제는 "*p는 a의 별명"이라고 바꿔 적고, 줄마다 a와 b의 값을 옆에 메모하며 내려가기',
+ pt:'변수 값을 매 줄 추적하는 표를 그리는 것이 유일한 정답 루트입니다. 암산하면 반드시 틀립니다.',
+ rel:'&는 주소, *는 그 주소에 든 값. 배열명은 첫 원소의 주소이므로 arr[i] == *(arr+i)'},
+
+{id:31,sub:'S4',topic:'상속·오버라이딩',freq:5,d:2,
+ q:'다음 Java 프로그램의 출력 결과는?',
+ code:`class A { int f() { return 10; } }
+class B extends A { int f() { return 20; } }
+
+public class Test {
+  public static void main(String[] args) {
+    A obj = new B();
+    System.out.print(obj.f());
+  }
+}`,
+ ch:['10','20','30','컴파일 오류'],a:1,
+ why:'참조 변수 타입은 A지만 실제 생성된 객체는 B입니다. 오버라이딩된 메소드는 실행 시점의 실제 객체를 따르므로 B의 f()가 호출되어 20이 출력됩니다.',
+ bad:'① 은 선언 타입만 보고 부모 메소드가 호출된다고 착각한 경우입니다. 부모 타입 변수에 자식 객체를 담는 것은 정상 문법이므로 ④도 아닙니다.',
+ mn:'"선언은 껍데기, 실행은 실체" → 오버라이딩은 항상 자식 우선',
+ pt:'super.f()를 붙이면 부모 메소드가 호출된다는 변형 문제가 함께 나옵니다.',
+ rel:'오버라이딩(재정의, 상속 관계, 같은 시그니처) vs 오버로딩(중복 정의, 같은 클래스, 매개변수 다름)'},
+
+{id:32,sub:'S4',topic:'프로세스 스케줄링',freq:4,d:3,
+ q:'도착시간이 모두 0일 때 실행시간이 P1=6, P2=3, P3=8, P4=2인 프로세스를 SJF로 처리하면 평균 대기시간은?',
+ ch:['3.5','4.5','5.5','6.5'],a:1,
+ why:'짧은 것부터 P4(2) → P2(3) → P1(6) → P3(8) 순서입니다. 대기시간은 각각 0, 2, 5, 11이며 합 18을 4로 나누면 4.5입니다.',
+ bad:'실행시간의 평균이나 반환시간의 평균을 구하면 다른 값이 나옵니다. 반환시간 평균은 (2+5+11+19)/4 = 9.25입니다.',
+ mn:'대기시간 = 내 앞 사람들의 실행시간 합 / 반환시간 = 대기시간 + 내 실행시간',
+ pt:'"대기시간"과 "반환시간"을 바꿔 묻는 함정이 핵심입니다. 문제에서 무엇을 묻는지 먼저 동그라미 치세요.',
+ rel:'비선점: FCFS, SJF, HRN, 우선순위, 기한부 / 선점: SRT, RR, 다단계 큐. HRN 우선순위 = (대기+서비스)/서비스'},
+
+{id:33,sub:'S4',topic:'서브넷팅',freq:4,d:3,
+ q:'C클래스 IP 200.1.1.0에 서브넷마스크 255.255.255.192를 적용할 때 한 서브넷당 사용 가능한 호스트 수는?',
+ ch:['30개','62개','64개','126개'],a:1,
+ why:'192는 2진수로 11000000이므로 호스트 비트가 6개 남습니다. 2⁶ = 64개 주소 중 네트워크 주소와 브로드캐스트 주소를 빼면 62개를 실제로 사용합니다.',
+ bad:'③ 64개는 전체 주소 수로, 2개를 빼지 않은 함정 답입니다. ① 30개는 마스크가 224일 때의 값입니다.',
+ mn:'"2^(남은 호스트 비트) − 2" / 마스크 값 128·192·224·240 → 호스트 126·62·30·14',
+ pt:'"사용 가능한 호스트 수"에는 반드시 −2를 하고, "서브넷 개수"를 물으면 빌린 비트로 2^n을 계산합니다.',
+ rel:'IPv4 32비트·IPv6 128비트. A(255.0.0.0), B(255.255.0.0), C(255.255.255.0)'},
+
+{id:34,sub:'S4',topic:'Python 슬라이싱',freq:4,d:2,
+ q:'다음 Python 코드의 출력 결과는?',
+ code:`a = [1, 2, 3, 4, 5]
+print(a[1:4:2])`,
+ ch:['[2, 3]','[2, 4]','[1, 3]','[2, 3, 4]'],a:1,
+ why:'a[시작:끝:간격] 형식입니다. 인덱스 1부터 4 앞까지(1,2,3) 2칸씩 건너뛰므로 인덱스 1과 3, 즉 값 2와 4가 선택됩니다.',
+ bad:'④ 는 간격을 무시한 경우, ③ 은 시작 인덱스를 0으로 잘못 본 경우입니다.',
+ mn:'슬라이싱 = "시작은 포함, 끝은 제외, 세 번째는 걸음 수"',
+ pt:'끝 인덱스가 제외된다는 점과 인덱스가 0부터 시작한다는 점, 이 두 개만 지키면 다 맞힙니다.',
+ rel:'a[::-1]은 역순 출력. 음수 인덱스는 뒤에서부터(-1이 마지막 원소)'},
+
+{id:35,sub:'S4',topic:'교착상태',freq:5,d:1,
+ q:'교착상태(Deadlock) 발생의 4가지 필요조건이 아닌 것은?',
+ ch:['상호배제(Mutual Exclusion)','점유와 대기(Hold and Wait)','비선점(Non-preemption)','선점(Preemption)'],a:3,
+ why:'교착상태 4대 조건은 상호배제·점유와 대기·비선점·환형 대기입니다. 선점은 오히려 교착상태를 예방하는 방법입니다.',
+ bad:'비선점(빼앗을 수 없음)이 조건이므로, 그 반대인 선점이 조건일 수 없습니다.',
+ mn:'교착상태 → "상점비환" (상호배제·점유와대기·비선점·환형대기)',
+ pt:'해결 방법 4단계도 세트입니다. 예방(Prevention) → 회피(Avoidance) → 발견(Detection) → 회복(Recovery).',
+ rel:'회피 기법의 대표는 은행원 알고리즘(Banker\'s Algorithm)입니다.'},
+
+{id:36,sub:'S4',topic:'페이지 교체',freq:4,d:1,
+ q:'가장 오랫동안 사용되지 않은 페이지를 먼저 교체하는 알고리즘은?',
+ ch:['FIFO','LRU','LFU','NUR'],a:1,
+ why:'LRU(Least Recently Used)는 최근 사용 시점을 기준으로 가장 오래 쓰이지 않은 페이지를 내보냅니다.',
+ bad:'① FIFO는 먼저 들어온 순서. ③ LFU는 사용 횟수가 가장 적은 것. ④ NUR은 최근 사용 여부를 참조·변형 비트로 판단합니다.',
+ mn:'LRU = Recently(시점) / LFU = Frequently(횟수) → "시점이냐 횟수냐"',
+ pt:'LRU와 LFU를 바꿔 묻는 함정이 가장 흔합니다. 계산 문제로 나오면 페이지 프레임 표를 그려 추적하세요.',
+ rel:'FIFO에서 프레임 수를 늘렸는데 페이지 부재가 늘어나는 현상 = Belady의 모순. 스래싱(Thrashing)도 함께 정리.'},
+
+{id:37,sub:'S4',topic:'OSI 7계층',freq:5,d:1,
+ q:'OSI 7계층 중 흐름제어·오류제어·순서제어를 수행하며 종단 간(End-to-End) 신뢰성 있는 전송을 담당하는 계층은?',
+ ch:['네트워크 계층','전송 계층','데이터링크 계층','세션 계층'],a:1,
+ why:'전송 계층은 송신 프로세스와 수신 프로세스 사이의 신뢰성 있는 데이터 전달을 책임지며 TCP/UDP가 여기 속합니다.',
+ bad:'① 네트워크 계층은 경로 선택(라우팅)과 논리 주소(IP). ③ 데이터링크 계층은 인접 노드 간 오류·흐름 제어(MAC). ④ 세션 계층은 연결의 설정·유지·종료를 담당합니다.',
+ mn:'OSI 7계층 → "응표세전네데물" (응용·표현·세션·전송·네트워크·데이터링크·물리)',
+ pt:'"종단 간(End-to-End)" = 전송 계층, "인접 노드 간(Point-to-Point)" = 데이터링크 계층으로 구분하세요.',
+ rel:'계층별 장비: 물리(리피터·허브), 데이터링크(브리지·스위치), 네트워크(라우터), 전송 이상(게이트웨이)'},
+
+{id:38,sub:'S4',topic:'제어문',freq:4,d:2,
+ q:'다음 C 프로그램의 출력 결과는?',
+ code:`int main() {
+    int i, s = 0;
+    for (i = 1; i <= 5; i++) {
+        if (i % 2 == 0) continue;
+        s += i;
+    }
+    printf("%d", s);
+}`,
+ ch:['6','9','15','10'],a:1,
+ why:'continue는 짝수일 때 아래 문장을 건너뛰고 다음 반복으로 갑니다. 따라서 홀수 1+3+5 = 9만 더해집니다.',
+ bad:'① 6은 짝수만 더한 값, ③ 15는 continue를 무시하고 전부 더한 값, ④ 10은 4까지만 계산한 값입니다.',
+ mn:'continue = "이번 회차만 건너뛰기" / break = "반복문 완전 탈출"',
+ pt:'continue와 break를 바꿔 놓는 함정이 대표적입니다. 짝수를 걸렀는지 홀수를 걸렀는지도 꼭 확인하세요.',
+ rel:'do~while은 조건을 나중에 검사해 최소 1회는 반드시 실행됩니다.'},
+
+/* ─── 5과목 정보시스템구축관리 ─── */
+{id:39,sub:'S5',topic:'암호화 알고리즘',freq:5,d:1,
+ q:'다음 중 대칭키(비밀키) 암호화 알고리즘이 아닌 것은?',
+ ch:['AES','SEED','ARIA','RSA'],a:3,
+ why:'RSA는 소인수분해의 어려움을 이용한 대표적인 공개키(비대칭키) 알고리즘입니다.',
+ bad:'① AES는 미국 표준, ② SEED는 국내 개발(KISA), ③ ARIA는 국내 국가 표준 대칭키 알고리즘입니다.',
+ mn:'대칭키 → "대세아리씨디" (DES·SEED·AES·ARIA·IDEA·RC4) / 공개키 → "라디엘" (RSA·Diffie-Hellman·ECC·ElGamal)',
+ pt:'국산 알고리즘 SEED·ARIA·HIGHT·LEA는 모두 대칭키라는 점이 자주 출제됩니다.',
+ rel:'대칭키는 속도가 빠르지만 키 배송 문제가 있고, 공개키는 느리지만 키 관리와 전자서명이 가능합니다.'},
+
+{id:40,sub:'S5',topic:'신기술 용어',freq:4,d:1,
+ q:'물리적 자산이나 시스템을 컴퓨터 상에 동일하게 표현한 가상 모델로, 시뮬레이션을 통해 결과를 미리 예측하는 기술은?',
+ ch:['디지털 트윈','메시 네트워크','블록체인','지그비'],a:0,
+ why:'디지털 트윈은 현실의 쌍둥이를 가상 공간에 만들어 미리 실험하고 문제를 예측하는 기술입니다.',
+ bad:'② 메시 네트워크는 그물망 형태의 무선 통신망. ③ 블록체인은 분산 원장. ④ 지그비는 저전력 근거리 무선 통신 규격입니다.',
+ mn:'Twin = 쌍둥이 → "현실의 쌍둥이를 가상에 만들어 미리 돌려본다"',
+ pt:'신기술 용어는 정의 문장의 핵심 단어 하나로 답이 갈립니다. "가상 모델·시뮬레이션·예측" = 디지털 트윈.',
+ rel:'함께 나오는 용어: 메타버스, 데이터 마이닝, 매시업(Mashup), 그레이웨어, 도커, 하이퍼바이저'},
+
+{id:41,sub:'S5',topic:'COCOMO',freq:5,d:2,
+ q:'COCOMO 모형에서 5만 라인 이하의 소규모 소프트웨어 개발에 적합한 유형은?',
+ ch:['Embedded','Semi-detached','Organic','Functional'],a:2,
+ why:'Organic(조직형)은 5만 라인 이하의 사무 처리용·업무용 소규모 소프트웨어에 적용합니다.',
+ bad:'② Semi-detached(반분리형)는 30만 라인 이하, ① Embedded(내장형)는 30만 라인 이상입니다. ④ Functional은 COCOMO 유형에 없습니다.',
+ mn:'"조5 반30 내30초과" (조직형 5만, 반분리형 30만, 내장형 30만 이상)',
+ pt:'라인 수와 유형을 1:1로 묻는 문제로 거의 매회 등장합니다. 숫자를 반드시 붙여서 외우세요.',
+ rel:'비용 산정: LOC(하한·상한·기대치), Effort per Person-Month, COCOMO, Putnam(Rayleigh-Norden 곡선), FP(기능점수)'},
+
+{id:42,sub:'S5',topic:'네트워크 공격',freq:5,d:1,
+ q:'다음 중 서비스 거부(DoS) 공격에 해당하지 않는 것은?',
+ ch:['Smurf Attack','SYN Flooding','Ping of Death','SQL Injection'],a:3,
+ why:'SQL Injection은 입력값에 악의적 SQL을 삽입해 데이터를 조회·조작하는 웹 애플리케이션 취약점 공격으로, 서비스를 마비시키는 DoS가 아닙니다.',
+ bad:'① 브로드캐스트로 응답 폭주를 유발, ② 연결 요청만 대량 보내 대기 큐를 채움, ③ 비정상적으로 큰 패킷 전송. 모두 DoS 유형입니다.',
+ mn:'DoS 5총사 → "스싱핑랜티" (Smurf·SYN Flooding·Ping of Death·Land·Teardrop)',
+ pt:'DoS(가용성 침해)와 웹 취약점 공격(기밀성·무결성 침해)의 구분이 출제 포인트입니다.',
+ rel:'DDoS는 좀비 PC를 이용한 분산 공격. 세션 하이재킹, XSS, CSRF, 스니핑도 같이 정리하세요.'},
+
+{id:43,sub:'S5',topic:'암호화 알고리즘',freq:4,d:2,
+ q:'다음 중 단방향(해시) 암호화 알고리즘이 아닌 것은?',
+ ch:['SHA-256','MD5','HAS-160','IDEA'],a:3,
+ why:'IDEA는 스위스에서 개발된 블록 암호 방식의 대칭키 알고리즘입니다.',
+ bad:'①②③은 임의 길이 입력을 고정 길이 해시값으로 바꾸는 단방향 함수입니다. HAS-160은 국내에서 개발된 해시 함수입니다.',
+ mn:'해시 → "새엠하스" (SHA·MD5·HAS-160·SNEFRU)',
+ pt:'대칭키·공개키·해시 3분류 문제입니다. 해시는 복호화가 불가능하다는 점이 결정적 단서입니다.',
+ rel:'해시는 무결성 검증과 비밀번호 저장에 사용. 솔트(Salt)를 더해 레인보우 테이블 공격을 방어합니다.'},
+
+{id:44,sub:'S5',topic:'소프트웨어 개발 모형',freq:5,d:2,
+ q:'나선형(Spiral) 모형의 4단계를 순서대로 나열한 것은?',
+ ch:['계획 및 정의 → 위험 분석 → 개발 → 고객 평가',
+     '위험 분석 → 계획 및 정의 → 고객 평가 → 개발',
+     '계획 및 정의 → 개발 → 위험 분석 → 고객 평가',
+     '개발 → 위험 분석 → 계획 및 정의 → 고객 평가'],a:0,
+ why:'나선형 모형은 계획 → 위험 분석 → 개발 → 고객 평가를 나선형으로 반복하며 점진적으로 완성합니다. 핵심은 위험 분석 단계가 있다는 점입니다.',
+ bad:'계획이 가장 먼저, 고객 평가가 마지막이라는 두 축을 잡으면 나머지는 걸러집니다.',
+ mn:'나선형 → "계위개고" (계획·위험분석·개발·고객평가)',
+ pt:'"위험 분석을 수반한다", "대규모 시스템에 적합하다"는 표현이 나오면 나선형 모형입니다.',
+ rel:'폭포수(순차적, 단계별 산출물 확실), 프로토타입(견본품으로 요구사항 도출), 애자일(반복·점진적)'},
+
+{id:45,sub:'S5',topic:'프로세스 성숙도',freq:4,d:2,
+ q:'소프트웨어 프로세스 성숙도를 5단계로 평가하는 미국 SEI의 모델은?',
+ ch:['ISO/IEC 12207','CMMI','ISO/IEC 9126','ITIL'],a:1,
+ why:'CMMI는 초기 → 관리 → 정의 → 정량적 관리 → 최적화의 5단계로 조직의 프로세스 성숙도를 평가합니다.',
+ bad:'① ISO 12207은 소프트웨어 생명주기 프로세스 표준, ③ ISO 9126은 소프트웨어 품질 특성 표준, ④ ITIL은 IT 서비스 관리 지침입니다.',
+ mn:'CMMI 5단계 → "초관정정최" (초기·관리·정의·정량적관리·최적화)',
+ pt:'SPICE(ISO 15504)는 0~5의 6단계라는 점이 CMMI와 구분되는 함정입니다.',
+ rel:'ISO 9126 품질 특성 6가지: 기능성·신뢰성·사용성·효율성·유지보수성·이식성'},
+
+{id:46,sub:'S5',topic:'클라우드',freq:3,d:1,
+ q:'클라우드 서비스 유형 중 개발 플랫폼과 실행 환경을 제공하는 것은?',
+ ch:['IaaS','PaaS','SaaS','DaaS'],a:1,
+ why:'PaaS(Platform as a Service)는 개발 도구·실행 환경·미들웨어까지 제공하여 개발자가 코드 작성에만 집중하게 합니다.',
+ bad:'① IaaS는 서버·스토리지 등 인프라만 제공. ③ SaaS는 완성된 응용 소프트웨어를 제공. ④ DaaS는 가상 데스크톱 서비스입니다.',
+ mn:'"인프라=I, 플랫폼=P, 소프트웨어=S" 앞 글자 그대로',
+ pt:'제공 범위가 IaaS < PaaS < SaaS 순으로 넓어진다는 점이 핵심입니다.',
+ rel:'배포 모델: 퍼블릭·프라이빗·하이브리드 클라우드. 관련 기술: 가상화, 하이퍼바이저, 도커, 서버리스'},
+
+{id:101,sub:'S1',topic:'아키텍처 4+1 뷰',freq:3,d:1,
+ q:'소프트웨어 아키텍처의 4+1 뷰에 해당하지 않는 것은?',
+ ch:['유스케이스 뷰','논리 뷰','프로세스 뷰','데이터 뷰'],a:3,
+ why:'4+1 뷰는 논리·프로세스·구현·배포 뷰에 이들을 하나로 묶는 유스케이스 뷰를 더한 것입니다. 데이터 뷰는 포함되지 않습니다.',
+ bad:'유스케이스 뷰가 "+1"에 해당하는 중심 뷰이며, 나머지 4개를 검증하는 역할을 합니다.',
+ mn:'4+1 → "논프구배 + 유스케이스" (논리·프로세스·구현·배포 + 유스케이스)',
+ pt:'"+1"이 유스케이스 뷰라는 점이 단독 출제 포인트입니다.',
+ rel:'아키텍처 4요소: 데이터·기능·인터페이스·비기능 요구사항. 아키텍처 설계 과정은 설계 목표 설정 → 시스템 타입 결정 → 스타일 적용 → 서브시스템 구체화 → 검토'},
+
+{id:102,sub:'S1',topic:'아키텍처 패턴',freq:4,d:2,
+ q:'데이터 처리 단계를 순차적으로 연결하여 앞 단계의 출력이 다음 단계의 입력이 되는 아키텍처 패턴은?',
+ ch:['계층화 패턴','MVC 패턴','파이프-필터 패턴','브로커 패턴'],a:2,
+ why:'파이프-필터는 필터가 데이터를 처리하고 파이프를 통해 다음 필터로 흘려보내는 구조로, UNIX 셸의 파이프가 대표 예입니다.',
+ bad:'① 계층화는 상하 계층으로 관심사를 분리. ② MVC는 모델·뷰·컨트롤러 분리. ④ 브로커는 분산 시스템에서 요청을 적절한 서버로 중개합니다.',
+ mn:'"필터가 가공하고 파이프가 전달한다" → 데이터 흐름 = 파이프-필터',
+ pt:'"순차적 처리", "출력이 다음 입력"이라는 표현이 나오면 파이프-필터입니다.',
+ rel:'주요 패턴: 계층화, 클라이언트-서버, 파이프-필터, MVC, 브로커, 마스터-슬레이브, 피어투피어'},
+
+{id:103,sub:'S1',topic:'MVC 패턴',freq:4,d:2,
+ q:'MVC 패턴에서 사용자 입력을 받아 모델과 뷰의 흐름을 제어하는 구성요소는?',
+ ch:['Model','View','Controller','Template'],a:2,
+ why:'Controller는 사용자의 요청을 해석해 Model에 처리를 지시하고, 결과를 보여줄 View를 선택합니다.',
+ bad:'① Model은 데이터와 업무 로직, ② View는 화면 표현을 담당합니다. ④ Template은 MVC 구성요소가 아닙니다.',
+ mn:'"모델은 데이터, 뷰는 화면, 컨트롤러는 교통정리"',
+ pt:'MVC의 목적은 표현과 로직의 분리를 통한 재사용성·유지보수성 향상입니다.',
+ rel:'MVP, MVVM 패턴과의 차이도 함께 출제됩니다. Model은 View나 Controller에 의존하지 않습니다.'},
+
+{id:104,sub:'S1',topic:'요구사항 분류',freq:4,d:1,
+ q:'성능, 보안, 사용성처럼 시스템이 갖추어야 할 품질 특성에 관한 요구사항은?',
+ ch:['기능 요구사항','비기능 요구사항','사용자 요구사항','시스템 요구사항'],a:1,
+ why:'비기능 요구사항은 시스템이 무엇을 하느냐가 아니라 어떻게 잘 동작해야 하는지를 규정합니다. 성능·보안·가용성·품질이 여기 속합니다.',
+ bad:'① 기능 요구사항은 시스템이 제공해야 하는 기능 자체입니다. ③④는 표현 수준에 따른 분류로 품질 특성과는 다른 축입니다.',
+ mn:'"무엇을 하나 = 기능 / 얼마나 잘 하나 = 비기능"',
+ pt:'"응답 시간 3초 이내", "동시 접속 1000명"처럼 수치가 붙으면 거의 비기능 요구사항입니다.',
+ rel:'요구사항의 4가지 특성: 명확성, 완전성, 검증 가능성, 추적 가능성, 일관성'},
+
+{id:105,sub:'S1',topic:'요구공학',freq:4,d:2,
+ q:'요구공학 프로세스의 순서로 옳은 것은?',
+ ch:['도출 → 분석 → 명세 → 확인','분석 → 도출 → 확인 → 명세',
+     '명세 → 도출 → 분석 → 확인','도출 → 명세 → 분석 → 확인'],a:0,
+ why:'이해관계자로부터 요구사항을 끌어내고(도출), 충돌을 정리하고(분석), 문서로 적고(명세), 제대로 적혔는지 검증합니다(확인).',
+ bad:'명세가 분석보다 앞서거나 확인이 중간에 오는 순서는 모두 오답입니다.',
+ mn:'요구공학 → "도분명확" (도출·분석·명세·확인)',
+ pt:'"확인(Validation)"이 마지막 단계라는 점을 반드시 기억하세요.',
+ rel:'요구사항 도출 기법: 인터뷰, 설문, 브레인스토밍, 워크숍, 프로토타이핑, 유스케이스'},
+
+{id:106,sub:'S1',topic:'객체지향 개념',freq:5,d:2,
+ q:'같은 메시지에 대해 객체의 클래스에 따라 서로 다른 방식으로 반응하는 객체지향 특성은?',
+ ch:['캡슐화','상속','다형성','추상화'],a:2,
+ why:'다형성(Polymorphism)은 하나의 인터페이스로 여러 구현을 다룰 수 있게 하는 성질로, 오버라이딩과 오버로딩이 대표적인 구현 수단입니다.',
+ bad:'① 캡슐화는 데이터와 메소드를 묶어 숨기는 것. ② 상속은 상위 클래스의 특성을 물려받는 것. ④ 추상화는 공통 특성만 뽑아내는 것입니다.',
+ mn:'객체지향 5요소 → "객클메인상" (객체·클래스·메시지·인스턴스·상속) / 특징 → "캡상다추정" (캡슐화·상속·다형성·추상화·정보은닉)',
+ pt:'"동일한 메시지, 다른 반응"이라는 표현은 100% 다형성입니다.',
+ rel:'오버라이딩은 상속 관계에서 재정의, 오버로딩은 같은 클래스에서 매개변수를 달리한 중복 정의'},
+
+{id:107,sub:'S1',topic:'객체지향 개념',freq:4,d:1,
+ q:'객체의 내부 데이터를 외부에서 직접 접근하지 못하게 감추는 것과 가장 관계가 깊은 개념은?',
+ ch:['상속','캡슐화','다형성','관계성'],a:1,
+ why:'캡슐화는 속성과 메소드를 하나로 묶고 외부에는 인터페이스만 공개하므로 정보 은닉이 실현됩니다.',
+ bad:'상속과 다형성은 재사용과 확장을 위한 개념이며 데이터 숨기기와는 직접 관련이 없습니다.',
+ mn:'"캡슐 = 알약, 안이 안 보인다" → 캡슐화 = 정보 은닉',
+ pt:'캡슐화의 효과: 인터페이스 단순화, 결합도 감소, 재사용성 향상, 변경 영향 최소화',
+ rel:'접근 제어자로 캡슐화를 구현합니다. private(내부만) → protected(상속 포함) → public(전체)'},
+
+{id:108,sub:'S1',topic:'SOLID 원칙',freq:4,d:3,
+ q:'객체지향 설계 원칙(SOLID) 중 "자식 클래스는 언제나 부모 클래스로 교체할 수 있어야 한다"는 원칙은?',
+ ch:['단일 책임 원칙(SRP)','개방-폐쇄 원칙(OCP)','리스코프 치환 원칙(LSP)','의존 역전 원칙(DIP)'],a:2,
+ why:'LSP는 서브타입이 기반 타입의 규약을 깨지 않아야 한다는 원칙입니다. 부모 자리에 자식을 넣어도 프로그램이 정상 동작해야 합니다.',
+ bad:'① SRP는 클래스는 하나의 책임만. ② OCP는 확장에는 열리고 변경에는 닫힘. ④ DIP는 구체 클래스가 아닌 추상에 의존.',
+ mn:'SOLID → "단개리인의" (단일책임·개방폐쇄·리스코프·인터페이스분리·의존역전)',
+ pt:'ISP(인터페이스 분리)는 "사용하지 않는 메소드에 의존하지 않는다"로 함께 출제됩니다.',
+ rel:'OCP를 구현하는 대표 수단이 추상 클래스와 인터페이스, 그리고 Strategy 패턴입니다.'},
+
+{id:109,sub:'S1',topic:'인터페이스 구현 검증',freq:3,d:2,
+ q:'인터페이스 구현 검증 도구에 해당하지 않는 것은?',
+ ch:['xUnit','STAF','FitNesse','Ant'],a:3,
+ why:'Ant는 빌드 자동화 도구입니다. 인터페이스 구현 검증 도구가 아닙니다.',
+ bad:'① 단위 테스트 프레임워크군, ② 서비스 호출 기반 분산 테스트 프레임워크, ③ 위키 기반 테스트 자동화 프레임워크로 모두 검증 도구입니다.',
+ mn:'검증 도구 → "엑스티피에스엔와" 대신 → xUnit·STAF·FitNesse·NTAF·Selenium·watir',
+ pt:'빌드 도구(Ant, Maven, Gradle)와 테스트 도구를 섞어 놓는 함정이 나옵니다.',
+ rel:'인터페이스 구현 방법: 데이터 통신(JSON·XML) 방식과 인터페이스 엔티티(중간 테이블) 방식'},
+
+{id:110,sub:'S1',topic:'UI 설계 원칙',freq:4,d:2,
+ q:'사용자 인터페이스(UI) 설계의 4대 기본 원칙에 해당하지 않는 것은?',
+ ch:['직관성','유효성','기밀성','유연성'],a:2,
+ why:'UI 4대 원칙은 직관성·유효성·학습성·유연성입니다. 기밀성은 정보보안의 요소입니다.',
+ bad:'① 누구나 쉽게 이해하고 사용, ② 목적을 정확하게 달성, ④ 사용자의 실수를 최소화하고 포용하는 성질입니다.',
+ mn:'UI 4원칙 → "직유학유" (직관성·유효성·학습성·유연성)',
+ pt:'UI 유형 4가지도 세트입니다. CLI(명령어), GUI(그래픽), NUI(신체·음성), OUI(사물)',
+ rel:'UI 설계 지침: 사용자 중심, 일관성, 단순성, 결과 예측 가능, 표준화, 접근성, 명확성, 오류 발생 해결'},
+
+{id:111,sub:'S1',topic:'자료사전',freq:3,d:2,
+ q:'자료 사전(Data Dictionary)에서 자료의 반복을 나타내는 기호는?',
+ ch:['=','+','{ }','[ | ]'],a:2,
+ why:'중괄호 { }는 자료가 반복됨을 의미합니다.',
+ bad:'① =는 자료의 정의, ② +는 자료의 연결(AND), ④ [ | ]는 자료의 선택(OR)입니다.',
+ mn:'자료사전 → "정연생반선주" : = 정의, + 연결, ( ) 생략, { } 반복, [ | ] 선택, ** 주석',
+ pt:'기호와 의미를 1:1로 묻는 문제로, 특히 ( ) 생략과 { } 반복을 바꿔 출제합니다.',
+ rel:'구조적 분석 도구: 자료흐름도(DFD), 자료사전(DD), 소단위 명세서(Mini-Spec), 개체관계도(ERD), 상태전이도(STD)'},
+
+{id:112,sub:'S1',topic:'럼바우 분석',freq:4,d:3,
+ q:'럼바우 분석 기법에서 기능 모델링에 사용되는 도구는?',
+ ch:['상태 다이어그램','자료흐름도(DFD)','객체 다이어그램','시퀀스 다이어그램'],a:1,
+ why:'기능 모델링은 프로세스 간 자료의 흐름을 중심으로 하므로 자료흐름도를 사용합니다.',
+ bad:'① 상태 다이어그램은 동적 모델링 도구, ③ 객체 다이어그램은 객체 모델링 도구입니다.',
+ mn:'"객체=객체도, 동적=상태도, 기능=자료흐름도"',
+ pt:'세 모델링과 각 도구를 짝지어 묻는 문제가 반복 출제됩니다.',
+ rel:'럼바우 순서: 객체 모델링 → 동적 모델링 → 기능 모델링'},
+
+{id:113,sub:'S1',topic:'유스케이스 관계',freq:4,d:2,
+ q:'유스케이스 다이어그램에서 하나의 유스케이스가 다른 유스케이스를 반드시 포함하여 실행하는 관계는?',
+ ch:['포함(include)','확장(extend)','일반화(generalization)','연관(association)'],a:0,
+ why:'include는 공통 기능을 별도 유스케이스로 분리해 항상 호출하는 관계입니다. 예를 들어 "예금 인출"이 항상 "본인 인증"을 포함합니다.',
+ bad:'② extend는 특정 조건에서만 선택적으로 확장되는 관계입니다.',
+ mn:'"include = 반드시 포함 / extend = 조건부 확장"',
+ pt:'include와 extend를 반대로 제시하는 함정이 대표적입니다.',
+ rel:'유스케이스 구성요소: 액터, 유스케이스, 시스템 경계, 관계. 액터는 사람뿐 아니라 외부 시스템도 가능합니다.'},
+
+{id:114,sub:'S1',topic:'접근 제어자',freq:3,d:2,
+ q:'클래스 다이어그램에서 같은 패키지 내에서만 접근을 허용하는 접근 제어자 표기는?',
+ ch:['+ (public)','- (private)','# (protected)','~ (package)'],a:3,
+ why:'물결표 ~는 package 접근 제어자로 동일 패키지 내부에서만 접근할 수 있습니다.',
+ bad:'① +는 모든 클래스에서 접근 가능, ② -는 해당 클래스 내부만, ③ #은 자신과 상속받은 클래스까지 허용합니다.',
+ mn:'"플러스는 열려있고, 마이너스는 잠겼고, 샵은 자식까지, 물결은 이웃(패키지)까지"',
+ pt:'private(-)와 protected(#) 기호를 바꿔 묻는 문제가 나옵니다.',
+ rel:'접근 범위 넓은 순: public > protected > default(package) > private'},
+
+{id:115,sub:'S1',topic:'아키텍처 평가',freq:3,d:3,
+ q:'소프트웨어 아키텍처 평가 모델에 해당하지 않는 것은?',
+ ch:['SAAM','ATAM','CBAM','CMMI'],a:3,
+ why:'CMMI는 조직의 프로세스 성숙도 평가 모델이며 아키텍처 평가 모델이 아닙니다.',
+ bad:'① 변경 용이성과 기능성 중심 평가, ② 여러 품질 속성의 트레이드오프 분석, ③ 비용과 편익 중심 평가 모델입니다.',
+ mn:'아키텍처 평가 → "삼아씨" (SAAM·ATAM·CBAM) + ADR·ARID',
+ pt:'ATAM은 "트레이드오프"라는 키워드로, CBAM은 "비용"이라는 키워드로 구별합니다.',
+ rel:'품질 속성: 성능, 보안, 가용성, 사용성, 변경 용이성, 테스트 용이성'},
+
+{id:116,sub:'S1',topic:'애자일',freq:4,d:1,
+ q:'애자일 선언문이 제시한 4가지 핵심 가치에서 더 중요하다고 본 쪽이 아닌 것은?',
+ ch:['개인과 상호작용','작동하는 소프트웨어','고객과의 협력','공정과 도구'],a:3,
+ why:'애자일은 공정과 도구보다 개인과 상호작용을, 문서보다 작동하는 소프트웨어를, 계약 협상보다 고객과의 협력을, 계획 준수보다 변화 대응을 중시합니다.',
+ bad:'④는 애자일이 상대적으로 덜 중요하다고 본 쪽입니다.',
+ mn:'애자일 4가치 → "사람·작동·협력·변화" (공정·문서·계약·계획보다 우선)',
+ pt:'"~보다 ~"의 앞뒤를 뒤집어 제시하는 함정이 가장 흔합니다.',
+ rel:'애자일 방법론: XP, Scrum, Lean, Crystal, FDD, ASD. 폭포수 모형과의 비교 문제도 출제됩니다.'},
+
+{id:201,sub:'S2',topic:'트리 순회',freq:4,d:2,
+ q:'루트가 A이고, A의 왼쪽 자식은 B(자식 D, E), 오른쪽 자식은 C(자식 F)인 이진 트리를 전위 순회(Preorder)한 결과는?',
+ ch:['A B D E C F','D B E A F C','D E B F C A','A B C D E F'],a:0,
+ why:'전위 순회는 뿌리 → 왼쪽 → 오른쪽 순서입니다. A를 먼저 방문하고 왼쪽 서브트리 B, D, E를 처리한 뒤 오른쪽 C, F로 갑니다.',
+ bad:'② 는 중위 순회, ③ 은 후위 순회 결과입니다. ④ 는 레벨 순회에 가깝습니다.',
+ mn:'전위=뿌왼오, 중위=왼뿌오, 후위=왼오뿌 → "뿌리가 앞·중간·뒤"',
+ pt:'뿌리(Root)의 위치만 기억하면 세 순회를 모두 구분할 수 있습니다.',
+ rel:'전위 순회 결과는 수식의 전위 표기(Prefix), 후위 순회 결과는 후위 표기(Postfix)와 같은 원리입니다.'},
+
+{id:202,sub:'S2',topic:'트리 순회',freq:4,d:2,
+ q:'위와 같은 이진 트리(루트 A, 왼쪽 B의 자식 D·E, 오른쪽 C의 자식 F)를 후위 순회(Postorder)한 결과는?',
+ ch:['A B D E C F','D B E A F C','D E B F C A','F C E D B A'],a:2,
+ why:'후위 순회는 왼쪽 → 오른쪽 → 뿌리 순서입니다. 왼쪽 서브트리에서 D, E, B를 처리하고 오른쪽에서 F, C를 처리한 뒤 마지막에 A를 방문합니다.',
+ bad:'① 전위, ② 중위 순회 결과입니다. 후위 순회는 반드시 루트가 마지막에 나옵니다.',
+ mn:'후위 = "왼오뿌" → 루트는 항상 맨 끝',
+ pt:'선택지 중 마지막 글자가 A인 것을 먼저 찾으면 후보가 절반으로 줄어듭니다.',
+ rel:'중위 순회 결과 D B E A F C는 이진 탐색 트리에서 오름차순 정렬 결과와 같습니다.'},
+
+{id:203,sub:'S2',topic:'수식 표기법',freq:4,d:2,
+ q:'중위 표기식 A + B * C를 후위 표기식으로 바르게 변환한 것은?',
+ ch:['A B + C *','A B C * +','A + B C *','+ A * B C'],a:1,
+ why:'연산자 우선순위에 따라 A + (B * C)로 묶습니다. 안쪽 B*C가 먼저 BC*가 되고, 그 결과와 A를 더하므로 A BC* + 즉 ABC*+가 됩니다.',
+ bad:'① 은 (A+B)*C의 후위 표기. ④ 는 전위 표기(Prefix)입니다.',
+ mn:'후위 변환 3단계 → "① 우선순위대로 괄호 묶기 ② 연산자를 괄호 뒤로 보내기 ③ 괄호 지우기"',
+ pt:'전위로 바꾸라고 하면 연산자를 괄호 "앞"으로 보냅니다. 뒤/앞만 다르고 과정은 같습니다.',
+ rel:'후위 표기식의 계산은 스택을 이용합니다. 피연산자는 넣고, 연산자를 만나면 두 개를 꺼내 계산합니다.'},
+
+{id:204,sub:'S2',topic:'해싱',freq:3,d:1,
+ q:'해싱에서 서로 다른 키가 같은 버킷 주소로 계산되는 현상은?',
+ ch:['충돌(Collision)','버킷(Bucket)','슬롯(Slot)','오버플로(Overflow)'],a:0,
+ why:'충돌은 서로 다른 키에 대해 해시 함수가 같은 주소를 반환하는 현상입니다.',
+ bad:'④ 오버플로는 충돌이 발생했는데 해당 버킷에 빈 슬롯마저 없는 상태로, 충돌의 결과이지 원인이 아닙니다.',
+ mn:'"같은 주소 = 충돌 / 자리까지 없음 = 오버플로"',
+ pt:'충돌과 오버플로를 구분해 묻는 문제가 나옵니다. 순서는 충돌 → (자리 없으면) 오버플로입니다.',
+ rel:'해시 함수 종류: 제산법, 제곱법, 폴딩법, 기수 변환법, 대수적 코딩법, 계수 분석법, 무작위법'},
+
+{id:205,sub:'S2',topic:'해싱',freq:3,d:3,
+ q:'해시 충돌을 해결하는 방법으로 적절하지 않은 것은?',
+ ch:['개방 주소법(Open Addressing)','체이닝(Chaining)','재해싱(Rehashing)','이진 탐색(Binary Search)'],a:3,
+ why:'이진 탐색은 정렬된 데이터에서 값을 찾는 검색 기법이며 해시 충돌 해결과 무관합니다.',
+ bad:'① 비어 있는 다음 자리를 찾아 저장, ② 같은 주소에 연결 리스트로 매달기, ③ 다른 해시 함수를 다시 적용하는 방법입니다.',
+ mn:'충돌 해결 → "개체재" (개방주소법·체이닝·재해싱)',
+ pt:'해싱의 검색 시간복잡도는 충돌이 없을 때 O(1)이라는 점이 함께 출제됩니다.',
+ rel:'선형 탐사, 이차 탐사, 이중 해싱은 모두 개방 주소법의 세부 기법입니다.'},
+
+{id:206,sub:'S2',topic:'품질 특성',freq:4,d:2,
+ q:'ISO/IEC 9126의 소프트웨어 품질 특성 6가지에 해당하지 않는 것은?',
+ ch:['기능성','신뢰성','이식성','경제성'],a:3,
+ why:'품질 특성 6가지는 기능성·신뢰성·사용성·효율성·유지보수성·이식성입니다. 경제성은 포함되지 않습니다.',
+ bad:'①②③은 모두 정식 품질 특성입니다. 나머지 3개는 사용성, 효율성, 유지보수성입니다.',
+ mn:'품질 6요소 → "기신사효유이" (기능성·신뢰성·사용성·효율성·유지보수성·이식성)',
+ pt:'"정확성"이나 "무결성"을 끼워 넣는 함정이 자주 나옵니다. 6개 이름을 정확히 외우세요.',
+ rel:'기능성의 하위 특성: 적합성, 정확성, 상호운용성, 보안성, 호환성'},
+
+{id:207,sub:'S2',topic:'테스트 오라클',freq:3,d:2,
+ q:'테스트 오라클의 종류에 해당하지 않는 것은?',
+ ch:['참(True) 오라클','샘플링(Sampling) 오라클','휴리스틱(Heuristic) 오라클','추정(Estimation) 오라클'],a:3,
+ why:'테스트 오라클은 참·샘플링·휴리스틱·일관성 검사 오라클 4가지입니다. 추정 오라클은 존재하지 않습니다.',
+ bad:'① 모든 입력값에 대해 기대 결과 제공, ② 특정 몇 개 입력값만 제공, ③ 샘플링을 개선해 나머지는 추정 처리하는 오라클입니다.',
+ mn:'오라클 → "참샘휴일" (참·샘플링·휴리스틱·일관성검사)',
+ pt:'"모든 입력값에 대해"라는 표현이 나오면 참 오라클입니다.',
+ rel:'테스트 케이스 구성요소: 식별자, 항목, 입력 데이터, 테스트 조건, 예상 결과'},
+
+{id:208,sub:'S2',topic:'테스트 레벨',freq:5,d:1,
+ q:'소프트웨어 테스트 레벨을 진행 순서대로 바르게 나열한 것은?',
+ ch:['단위 → 통합 → 시스템 → 인수','단위 → 시스템 → 통합 → 인수',
+     '통합 → 단위 → 인수 → 시스템','인수 → 시스템 → 통합 → 단위'],a:0,
+ why:'가장 작은 모듈부터 검사하고(단위), 모듈을 합치며 검사하고(통합), 전체 시스템을 검사한 뒤(시스템), 마지막에 사용자가 확인합니다(인수).',
+ bad:'인수 테스트가 마지막이라는 점만 잡아도 ③④는 걸러집니다.',
+ mn:'테스트 레벨 → "단통시인" (단위·통합·시스템·인수)',
+ pt:'V-모델에서 단위는 상세설계, 통합은 아키텍처설계, 시스템은 시스템설계, 인수는 요구분석과 대응됩니다.',
+ rel:'인수 테스트는 다시 알파 테스트와 베타 테스트로 나뉩니다.'},
+
+{id:209,sub:'S2',topic:'인수 테스트',freq:4,d:2,
+ q:'개발자의 장소에서 사용자가 개발자와 함께 수행하며, 개발자가 문제점을 직접 기록하는 테스트는?',
+ ch:['알파 테스트','베타 테스트','회귀 테스트','스모크 테스트'],a:0,
+ why:'알파 테스트는 통제된 개발 환경에서 개발자가 지켜보는 가운데 사용자가 수행합니다.',
+ bad:'② 베타 테스트는 실제 사용자 환경에서 사용자가 단독으로 수행하고 문제를 개발자에게 보고합니다.',
+ mn:'"알파는 개발자 옆에서, 베타는 사용자 집에서"',
+ pt:'알파와 베타의 수행 장소·주체를 바꿔 놓는 함정이 매우 흔합니다.',
+ rel:'인수 테스트 종류: 사용자 인수, 운영상의 인수, 계약 인수, 규정 인수, 알파, 베타'},
+
+{id:210,sub:'S2',topic:'회귀 테스트',freq:4,d:2,
+ q:'회귀 테스트(Regression Test)를 수행하는 주된 목적은?',
+ ch:['시스템의 성능 한계를 측정하기 위해','수정으로 인해 기존 기능에 부작용이 생겼는지 확인하기 위해',
+     '사용자 만족도를 조사하기 위해','보안 취약점을 점검하기 위해'],a:1,
+ why:'회귀 테스트는 코드를 수정한 뒤 이전에 정상이던 기능이 망가지지 않았는지 다시 검사하는 것입니다.',
+ bad:'① 은 성능 테스트, ④ 는 보안 테스트의 목적입니다.',
+ mn:'"회귀 = 되돌아가 다시 확인 = 부작용(Side Effect) 검사"',
+ pt:'유지보수 단계에서 가장 중요한 테스트로 출제됩니다.',
+ rel:'유지보수 유형: 수정(Corrective), 적응(Adaptive), 완전화(Perfective), 예방(Preventive)'},
+
+{id:211,sub:'S2',topic:'버전 관리',freq:4,d:2,
+ q:'버전 관리에서 저장소의 파일을 개인 작업 공간으로 가져오는 작업을 뜻하는 용어는?',
+ ch:['Check-in','Check-out','Import','Diff'],a:1,
+ why:'Check-out은 저장소의 파일을 자신의 작업 공간으로 내려받는 것이고, 반대로 수정본을 저장소에 올리는 것이 Check-in입니다.',
+ bad:'③ Import는 비어 있는 저장소에 처음 파일을 등록하는 것, ④ Diff는 버전 간 차이를 비교하는 것입니다.',
+ mn:'"체크아웃 = 빌려오기 / 체크인 = 반납하기 / 커밋 = 변경 확정"',
+ pt:'Check-in과 Check-out을 바꿔 묻는 문제가 대표적입니다.',
+ rel:'Git 명령: clone(복제), add(스테이징), commit(확정), push(업로드), pull(내려받기+병합), branch(분기)'},
+
+{id:212,sub:'S2',topic:'디지털 저작권 관리',freq:3,d:1,
+ q:'디지털 콘텐츠의 불법 복제를 막고 사용 권한을 관리하는 저작권 보호 기술은?',
+ ch:['DRM','DOI','CRM','ERP'],a:0,
+ why:'DRM(Digital Rights Management)은 암호화와 라이선스를 통해 콘텐츠 사용을 통제합니다.',
+ bad:'② DOI는 디지털 객체 식별자, ③ CRM은 고객 관계 관리, ④ ERP는 전사적 자원 관리 시스템입니다.',
+ mn:'DRM = "Rights(권리) Management(관리)"',
+ pt:'DRM 구성요소: 콘텐츠 제공자, 패키저, 클리어링 하우스, 보안 컨테이너, DRM 컨트롤러',
+ rel:'패키징 단계에서 암호화·워터마킹·키 관리를 수행하며, 릴리즈 노트와 함께 배포됩니다.'},
+
+{id:213,sub:'S2',topic:'클린 코드',freq:3,d:2,
+ q:'클린 코드 작성 원칙에 해당하지 않는 것은?',
+ ch:['가독성','단순성','의존성 배제','중복성'],a:3,
+ why:'클린 코드는 중복을 최소화해야 합니다. 중복성은 오히려 피해야 할 대상입니다.',
+ bad:'①②③과 추상화가 클린 코드의 원칙입니다.',
+ mn:'클린 코드 → "가단의중추" 중 중복은 "최소화"임에 주의',
+ pt:'"중복 코드 제거"가 원칙이지 "중복성"이 원칙이 아니라는 말장난 함정입니다.',
+ rel:'나쁜 코드의 대표 사례가 스파게티 코드와 외계인 코드(Alien Code)입니다.'},
+
+{id:214,sub:'S2',topic:'순환복잡도',freq:4,d:3,
+ q:'제어 흐름 그래프에서 화살표(간선)가 6개, 노드가 4개일 때 McCabe의 순환복잡도는?',
+ ch:['3','4','5','6'],a:1,
+ why:'순환복잡도 V(G) = 간선 수 − 노드 수 + 2 이므로 6 − 4 + 2 = 4입니다.',
+ bad:'+2를 빼먹으면 2가 되고, 간선과 노드를 반대로 대입하면 0이 됩니다.',
+ mn:'"간선 빼기 노드 더하기 2" → V(G) = E − N + 2',
+ pt:'분기(조건문) 개수 + 1로도 계산할 수 있습니다. 두 방법의 결과는 같아야 합니다.',
+ rel:'순환복잡도는 기초 경로 검사에서 필요한 최소 테스트 경로 수와 같습니다.'},
+
+{id:215,sub:'S2',topic:'트리',freq:3,d:3,
+ q:'모든 레벨이 꽉 찬 포화 이진 트리에서 레벨 4까지의 전체 노드 수는? (루트는 레벨 1)',
+ ch:['8','15','16','31'],a:1,
+ why:'레벨별 노드 수는 1, 2, 4, 8이며 합은 15입니다. 공식으로는 2⁴ − 1 = 15입니다.',
+ bad:'① 8은 마지막 레벨의 노드 수, ③ 16은 2⁴, ④ 31은 레벨 5까지의 합입니다.',
+ mn:'포화 이진 트리 노드 수 = 2^(높이) − 1',
+ pt:'"레벨"과 "높이"의 시작을 1로 보는지 0으로 보는지 문제에서 확인하세요.',
+ rel:'차수(Degree)는 자식 노드의 수, 트리의 차수는 노드들의 차수 중 최댓값, 단말 노드는 차수가 0인 노드'},
+
+{id:301,sub:'S3',topic:'DDL',freq:4,d:1,
+ q:'이미 생성된 테이블의 구조(속성 추가·변경)를 수정할 때 사용하는 SQL 명령은?',
+ ch:['MODIFY TABLE','ALTER TABLE','UPDATE TABLE','CHANGE TABLE'],a:1,
+ why:'ALTER TABLE은 ADD(추가), MODIFY(변경), DROP(삭제) 절과 함께 테이블 구조를 바꾸는 DDL 명령입니다.',
+ bad:'③ UPDATE는 테이블 구조가 아니라 저장된 데이터 값을 바꾸는 DML입니다. ①④는 존재하지 않는 명령입니다.',
+ mn:'"구조는 ALTER, 값은 UPDATE"',
+ pt:'구조 변경과 데이터 변경을 혼동하게 만드는 대표 함정입니다.',
+ rel:'DDL 3형제: CREATE(생성), ALTER(변경), DROP(삭제). TRUNCATE도 DDL입니다.'},
+
+{id:302,sub:'S3',topic:'DDL',freq:4,d:2,
+ q:'테이블의 구조는 그대로 두고 모든 행을 삭제하며, 롤백이 불가능한 명령은?',
+ ch:['DELETE','DROP','TRUNCATE','ALTER'],a:2,
+ why:'TRUNCATE는 DDL이므로 자동 커밋되어 되돌릴 수 없고, 행을 한 건씩 지우지 않아 DELETE보다 빠릅니다.',
+ bad:'① DELETE는 DML이라 ROLLBACK이 가능합니다. ② DROP은 테이블 구조 자체를 없앱니다.',
+ mn:'"DELETE는 지웠다 되돌리기 가능 / TRUNCATE는 지우면 끝 / DROP은 테이블째 증발"',
+ pt:'세 명령의 차이를 비교하는 문제가 자주 나옵니다. 구조 유지 여부와 롤백 가능 여부가 핵심입니다.',
+ rel:'DELETE FROM 학생; 은 전체 행 삭제이며 WHERE절이 없으면 모든 행이 지워집니다.'},
+
+{id:303,sub:'S3',topic:'참조 무결성',freq:4,d:2,
+ q:'외래키가 참조하는 기본키 값이 삭제될 때, 이를 참조하는 튜플도 함께 삭제되도록 하는 옵션은?',
+ ch:['RESTRICT','CASCADE','SET NULL','NO ACTION'],a:1,
+ why:'CASCADE는 변경·삭제를 연쇄적으로 전파합니다.',
+ bad:'① RESTRICT는 참조 중이면 삭제를 거부, ③ SET NULL은 참조하던 값을 NULL로 바꿉니다.',
+ mn:'"CASCADE = 폭포수처럼 줄줄이 삭제"',
+ pt:'ON DELETE CASCADE 구문으로 SQL 문제에도 등장합니다.',
+ rel:'무결성 제약: 개체 무결성(기본키 NULL·중복 불가), 참조 무결성(외래키는 참조 대상에 존재해야 함), 도메인 무결성'},
+
+{id:304,sub:'S3',topic:'SQL 집계',freq:5,d:2,
+ q:'학생 테이블의 학과 열에 컴공, 컴공, 전기, 전기, 수학이 저장되어 있을 때 다음 SQL의 결과는?',
+ code:`SELECT COUNT(DISTINCT 학과) FROM 학생;`,
+ ch:['1','3','5','2'],a:1,
+ why:'DISTINCT는 중복을 제거하므로 컴공·전기·수학 3개만 남고, COUNT가 이를 세어 3이 됩니다.',
+ bad:'③ 5는 DISTINCT를 무시하고 전체 행을 센 경우입니다.',
+ mn:'"COUNT(*)는 행 개수, COUNT(DISTINCT 열)은 중복 없는 값 개수"',
+ pt:'COUNT(열)은 해당 열이 NULL인 행을 세지 않지만 COUNT(*)는 NULL도 셉니다. 이 차이가 자주 출제됩니다.',
+ rel:'집계 함수 SUM·AVG·MAX·MIN도 NULL은 제외하고 계산합니다.'},
+
+{id:305,sub:'S3',topic:'무결성',freq:4,d:3,
+ q:'"기본키를 구성하는 속성은 NULL 값이나 중복된 값을 가질 수 없다"는 제약조건은?',
+ ch:['개체 무결성','참조 무결성','도메인 무결성','사용자 정의 무결성'],a:0,
+ why:'개체 무결성(Entity Integrity)은 각 튜플을 유일하게 식별하기 위한 기본키의 조건입니다.',
+ bad:'② 참조 무결성은 외래키 값이 참조 테이블에 반드시 존재해야 한다는 규칙. ③ 도메인 무결성은 속성값이 정의된 도메인에 속해야 한다는 규칙입니다.',
+ mn:'"기본키=개체, 외래키=참조, 값의 범위=도메인"',
+ pt:'세 무결성을 정의 문장과 짝지어 묻는 문제가 매회 수준으로 나옵니다.',
+ rel:'외래키는 NULL을 가질 수 있지만 기본키는 절대 NULL을 가질 수 없습니다.'},
+
+{id:306,sub:'S3',topic:'인덱스',freq:4,d:2,
+ q:'테이블에 인덱스를 많이 생성했을 때 나타나는 현상으로 옳은 것은?',
+ ch:['SELECT 속도가 느려진다','INSERT·UPDATE·DELETE 속도가 느려진다',
+     '저장 공간이 절약된다','트랜잭션 격리 수준이 높아진다'],a:1,
+ why:'데이터가 바뀔 때마다 인덱스도 함께 갱신해야 하므로 삽입·수정·삭제 성능이 떨어집니다.',
+ bad:'① 인덱스는 검색을 빠르게 합니다. ③ 인덱스는 별도 저장 공간을 추가로 차지합니다.',
+ mn:'"인덱스 = 검색은 빨라지고, 변경은 느려지고, 공간은 늘어난다"',
+ pt:'인덱스의 장점만 묻는 문제와 단점을 묻는 문제가 번갈아 나옵니다.',
+ rel:'인덱스 종류: 클러스터드(물리적 정렬, 테이블당 1개), 넌클러스터드, B-트리, 비트맵, 해시 인덱스'},
+
+{id:307,sub:'S3',topic:'3단계 스키마',freq:4,d:2,
+ q:'데이터베이스 3단계 스키마 중 조직 전체의 관점에서 데이터베이스 전체를 논리적으로 정의한 것은?',
+ ch:['외부 스키마','개념 스키마','내부 스키마','물리 스키마'],a:1,
+ why:'개념 스키마는 조직 전체의 통합된 뷰로, 데이터베이스당 하나만 존재합니다.',
+ bad:'① 외부 스키마는 사용자·응용별 관점(여러 개 존재), ③ 내부 스키마는 물리적 저장 구조를 정의합니다.',
+ mn:'"외부=개인 관점, 개념=조직 관점, 내부=저장 관점"',
+ pt:'"데이터베이스에 하나만 존재한다"는 표현이 나오면 개념 스키마입니다.',
+ rel:'논리적 독립성 = 외부와 개념 사이, 물리적 독립성 = 개념과 내부 사이'},
+
+{id:308,sub:'S3',topic:'DB 설계 단계',freq:4,d:2,
+ q:'데이터베이스 설계 순서로 옳은 것은?',
+ ch:['요구조건 분석 → 개념적 설계 → 논리적 설계 → 물리적 설계 → 구현',
+     '요구조건 분석 → 논리적 설계 → 개념적 설계 → 물리적 설계 → 구현',
+     '개념적 설계 → 요구조건 분석 → 논리적 설계 → 구현 → 물리적 설계',
+     '요구조건 분석 → 물리적 설계 → 논리적 설계 → 개념적 설계 → 구현'],a:0,
+ why:'추상적인 개념(E-R 다이어그램)에서 시작해 특정 DBMS에 맞춘 논리 구조(테이블)로, 다시 저장 구조(인덱스·접근 경로)로 구체화됩니다.',
+ bad:'개념과 논리의 순서를 바꾸거나 물리를 앞에 두는 것은 모두 오답입니다.',
+ mn:'DB 설계 → "요개논물구"',
+ pt:'개념적 설계 = E-R 모델링, 논리적 설계 = 정규화·테이블 설계, 물리적 설계 = 인덱스·접근 경로 설계',
+ rel:'트랜잭션 모델링은 개념적 설계 단계에서 시작됩니다.'},
+
+{id:309,sub:'S3',topic:'트랜잭션 상태',freq:3,d:3,
+ q:'트랜잭션이 실행 도중 오류가 발생해 실행 전 상태로 되돌려진 상태는?',
+ ch:['활동(Active)','부분 완료(Partially Committed)','완료(Committed)','철회(Aborted)'],a:3,
+ why:'철회 상태는 실패(Failed) 이후 ROLLBACK이 수행되어 트랜잭션 이전 상태로 복귀한 상태입니다.',
+ bad:'② 부분 완료는 마지막 명령까지 실행했지만 아직 COMMIT되지 않은 상태입니다.',
+ mn:'트랜잭션 상태 → "활부완 / 실철" (활동·부분완료·완료 / 실패·철회)',
+ pt:'부분 완료 상태에서 장애가 나면 실패 → 철회로 이어진다는 흐름이 출제됩니다.',
+ rel:'COMMIT은 결과를 영구 반영, ROLLBACK은 취소. 회복 기법: 로그 기반(즉시·지연 갱신), 검사점, 그림자 페이징'},
+
+{id:310,sub:'S3',topic:'병행제어',freq:4,d:3,
+ q:'로킹 단위(Locking Granularity)를 작게 할 때 나타나는 현상으로 옳은 것은?',
+ ch:['병행성 증가, 관리 오버헤드 증가','병행성 증가, 관리 오버헤드 감소',
+     '병행성 감소, 관리 오버헤드 증가','병행성 감소, 관리 오버헤드 감소'],a:0,
+ why:'로킹 단위가 작으면 더 많은 트랜잭션이 동시에 접근할 수 있어 병행성은 좋아지지만, 잠금 개수가 늘어 관리 부담은 커집니다.',
+ bad:'병행성과 오버헤드는 항상 같은 방향으로 움직인다는 점을 놓치면 ②③을 고르게 됩니다.',
+ mn:'"단위가 작다 → 잘게 쪼개니 여럿이 쓰지만(병행성↑) 관리할 자물쇠가 많다(오버헤드↑)"',
+ pt:'반대로 "로킹 단위를 크게 하면"으로 묻는 문제도 나옵니다. 이때는 둘 다 감소입니다.',
+ rel:'2단계 로킹 규약: 확장 단계에서는 잠금만, 축소 단계에서는 해제만 수행하여 직렬 가능성을 보장합니다.'},
+
+{id:311,sub:'S3',topic:'SQL 조건',freq:5,d:1,
+ q:'학생 테이블에서 이름이 "김"으로 시작하는 학생을 검색하는 조건절로 옳은 것은?',
+ ch:["WHERE 이름 = '김%'","WHERE 이름 LIKE '김%'","WHERE 이름 LIKE '%김'","WHERE 이름 IN '김%'"],a:1,
+ why:'부분 일치 검색에는 LIKE와 와일드카드를 씁니다. %는 0글자 이상의 임의 문자열을 뜻하므로 김%는 김으로 시작하는 모든 이름을 찾습니다.',
+ bad:'① =는 완전히 일치하는 값만 찾습니다. ③ %김은 김으로 "끝나는" 이름입니다.',
+ mn:"'김%'는 김으로 시작, '%김'은 김으로 끝, '%김%'은 김이 포함",
+ pt:'_(언더바)는 정확히 한 글자를 의미합니다. 김__ 은 이름이 세 글자인 김씨입니다.',
+ rel:'BETWEEN A AND B(범위), IN(목록), IS NULL(널 검사)도 함께 출제됩니다.'},
+
+{id:312,sub:'S3',topic:'분산 데이터베이스',freq:3,d:3,
+ q:'분산 데이터베이스의 투명성(Transparency)에 해당하지 않는 것은?',
+ ch:['위치 투명성','중복 투명성','병행 투명성','이동 투명성'],a:3,
+ why:'분산 DB의 투명성은 위치·분할·복제(중복)·병행·장애 투명성입니다. 이동 투명성은 포함되지 않습니다.',
+ bad:'① 데이터의 물리적 위치를 몰라도 사용 가능, ② 중복 저장을 인식하지 않아도 됨, ③ 여러 트랜잭션이 동시 수행되어도 결과가 일관됨을 뜻합니다.',
+ mn:'분산 투명성 → "위분중병장" (위치·분할·중복·병행·장애)',
+ pt:'분산 DB의 장점(신뢰성·가용성·확장성)과 단점(설계 복잡, 비용 증가)도 함께 나옵니다.',
+ rel:'분산 DB의 목표는 사용자가 데이터가 어디에 있든 하나의 DB처럼 느끼게 하는 것입니다.'},
+
+{id:313,sub:'S3',topic:'릴레이션 용어',freq:4,d:2,
+ q:'릴레이션에서 속성(Attribute)의 개수를 가리키는 용어는?',
+ ch:['카디널리티(Cardinality)','디그리(Degree)','도메인(Domain)','인스턴스(Instance)'],a:1,
+ why:'디그리(차수)는 열의 개수, 카디널리티는 행(튜플)의 개수입니다.',
+ bad:'① 카디널리티는 튜플의 개수입니다. ③ 도메인은 각 속성이 가질 수 있는 값의 범위입니다.',
+ mn:'"디그리 = 세로(열), 카디널리티 = 가로(행)"',
+ pt:'표를 주고 디그리와 카디널리티를 각각 세는 계산형 문제로도 나옵니다.',
+ rel:'릴레이션 특징: 튜플의 유일성, 튜플 간 순서 없음, 속성 간 순서 없음, 속성값은 원자값'},
+
+{id:314,sub:'S3',topic:'반정규화',freq:4,d:3,
+ q:'반정규화(De-normalization) 기법에 해당하지 않는 것은?',
+ ch:['테이블 통합','테이블 분할','중복 컬럼 추가','함수적 종속 제거'],a:3,
+ why:'함수적 종속을 제거하는 것은 정규화의 과정입니다. 반정규화는 성능을 위해 의도적으로 중복을 허용하는 반대 작업입니다.',
+ bad:'①②③과 요약 테이블 추가, 이력 테이블 분리는 모두 반정규화 기법입니다.',
+ mn:'"정규화는 쪼개서 중복 제거 / 반정규화는 합쳐서 속도 확보"',
+ pt:'반정규화의 목적은 조회 성능 향상이며, 대가로 데이터 무결성 위험이 커집니다.',
+ rel:'반정규화 대상 판단 기준: 조회 빈도가 매우 높고 조인이 과도하게 발생하는 경우'},
+
+{id:315,sub:'S3',topic:'OLAP',freq:3,d:3,
+ q:'OLAP의 주요 연산에 해당하지 않는 것은?',
+ ch:['Roll-up','Drill-down','Slicing','Sorting'],a:3,
+ why:'OLAP 연산은 Roll-up, Drill-down, Drill-through, Pivoting, Slicing, Dicing입니다. Sorting은 포함되지 않습니다.',
+ bad:'① 상세에서 요약으로 집계 수준을 올림, ② 요약에서 상세로 내려감, ③ 한 차원을 고정해 단면을 봄.',
+ mn:'OLAP → "롤드피슬다" (Roll-up·Drill-down·Pivoting·Slicing·Dicing)',
+ pt:'Roll-up과 Drill-down의 방향을 바꿔 묻는 함정이 나옵니다. Up은 요약, Down은 상세입니다.',
+ rel:'데이터 웨어하우스(주제 지향·통합·시계열·비휘발성), 데이터 마트, 데이터 마이닝과 함께 정리하세요.'},
+
+{id:401,sub:'S4',topic:'증감 연산자',freq:5,d:2,
+ q:'다음 C 프로그램의 출력 결과는?',
+ code:`int main() {
+    int a = 3;
+    int b = a++ + ++a;
+    printf("%d", b);
+}`,
+ ch:['6','7','8','9'],a:2,
+ why:'a++는 현재 값 3을 쓰고 a를 4로 만듭니다. 이어서 ++a는 a를 5로 먼저 올린 뒤 5를 사용합니다. 따라서 3 + 5 = 8입니다.',
+ bad:'① 6은 둘 다 3으로 본 경우, ④ 9는 둘 다 4 이상으로 본 경우입니다.',
+ mn:'"a++는 쓰고 올린다 / ++a는 올리고 쓴다"',
+ pt:'후위 연산은 값을 사용한 다음 증가하고, 전위 연산은 증가한 다음 사용합니다. 한 줄에 섞여 나오면 반드시 순서대로 메모하세요.',
+ rel:'a = a++; 는 값이 변하지 않는다는 함정 문제도 출제됩니다.'},
+
+{id:402,sub:'S4',topic:'문자열',freq:4,d:2,
+ q:'다음 C 프로그램의 출력 결과는?',
+ code:`#include <string.h>
+int main() {
+    char s[] = "Korea";
+    printf("%d", strlen(s));
+}`,
+ ch:['4','5','6','7'],a:1,
+ why:'strlen은 널 문자를 제외한 실제 글자 수를 반환하므로 K,o,r,e,a 5입니다.',
+ bad:'③ 6은 sizeof(s)의 값으로, 널 문자까지 포함한 배열의 크기입니다. 이 둘을 바꿔 묻는 것이 핵심 함정입니다.',
+ mn:'"strlen은 글자 수, sizeof는 널 문자까지 포함한 방 크기"',
+ pt:'문자열 끝에는 항상 널 문자가 붙으므로 sizeof는 strlen보다 1 큽니다.',
+ rel:'strcpy(복사), strcat(연결), strcmp(비교) 함수도 함께 출제됩니다.'},
+
+{id:403,sub:'S4',topic:'2차원 배열',freq:4,d:2,
+ q:'다음 C 프로그램의 출력 결과는?',
+ code:`int main() {
+    int a[3][2] = {{1,2},{3,4},{5,6}};
+    printf("%d", a[1][1]);
+}`,
+ ch:['2','3','4','5'],a:2,
+ why:'인덱스는 0부터 시작하므로 a[1]은 두 번째 행 {3,4}이고, 그중 [1]은 두 번째 값인 4입니다.',
+ bad:'인덱스를 1부터 센다고 착각하면 ① 또는 ②를 고르게 됩니다.',
+ mn:'"행부터 세고 열을 센다, 둘 다 0부터"',
+ pt:'2차원 배열은 반드시 표를 그려 행·열 번호를 적어두고 찾으세요.',
+ rel:'a[i][j]는 *(*(a+i)+j)와 같습니다. 배열과 포인터의 관계 문제로 확장됩니다.'},
+
+{id:404,sub:'S4',topic:'Java 배열',freq:4,d:2,
+ q:'다음 Java 프로그램의 출력 결과는?',
+ code:`public class Test {
+  public static void main(String[] args) {
+    int[] a = {1,2,3,4,5};
+    int s = 0;
+    for (int i = 0; i < a.length; i += 2) s += a[i];
+    System.out.print(s);
+  }
+}`,
+ ch:['6','9','15','10'],a:1,
+ why:'i가 0, 2, 4일 때만 실행되므로 a[0]+a[2]+a[4] = 1+3+5 = 9입니다.',
+ bad:'① 6은 짝수 위치 값(2+4)의 합, ③ 15는 전체 합입니다.',
+ mn:'"i += 2는 인덱스를 건너뛴다, 값을 건너뛰는 게 아니다"',
+ pt:'인덱스를 건너뛰는 문제인지 값을 조건으로 거르는 문제인지 구분하는 것이 관건입니다.',
+ rel:'Java 배열 길이는 a.length(괄호 없음), 문자열 길이는 s.length()(괄호 있음)입니다.'},
+
+{id:405,sub:'S4',topic:'static 변수',freq:4,d:3,
+ q:'다음 Java 프로그램의 출력 결과는?',
+ code:`class C {
+  static int cnt = 0;
+  C() { cnt++; }
+}
+public class Test {
+  public static void main(String[] args) {
+    new C(); new C(); new C();
+    System.out.print(C.cnt);
+  }
+}`,
+ ch:['0','1','3','컴파일 오류'],a:2,
+ why:'static 변수는 클래스당 하나만 존재하고 모든 인스턴스가 공유합니다. 생성자가 3번 호출되므로 cnt는 3이 됩니다.',
+ bad:'① 1은 인스턴스마다 별도 변수를 가진다고 오해한 경우입니다.',
+ mn:'"static = 클래스 소유, 인스턴스 몇 개든 하나뿐"',
+ pt:'static 변수는 객체 생성 없이 클래스명으로 바로 접근할 수 있다는 점도 자주 출제됩니다.',
+ rel:'생성자는 클래스 이름과 같고 반환형이 없으며, 객체 생성 시 자동 호출됩니다.'},
+
+{id:406,sub:'S4',topic:'Python 딕셔너리',freq:4,d:2,
+ q:'다음 Python 코드의 출력 결과는?',
+ code:`d = {'a':1, 'b':2}
+d['c'] = 3
+d['a'] = 9
+print(len(d))`,
+ ch:['2','3','4','오류 발생'],a:1,
+ why:'없는 키 c를 대입하면 새 항목이 추가되고, 이미 있는 키 a를 대입하면 값만 바뀝니다. 따라서 키는 a, b, c로 3개입니다.',
+ bad:'③ 4는 a가 두 번 추가된다고 오해한 경우입니다. 딕셔너리의 키는 중복될 수 없습니다.',
+ mn:'"딕셔너리 = 키는 중복 불가, 없으면 추가·있으면 수정"',
+ pt:'리스트는 순서가 있고 중복 허용, 집합(set)은 순서 없고 중복 불가, 튜플은 수정 불가입니다.',
+ rel:'d.keys(), d.values(), d.items()로 각각 키·값·쌍을 얻습니다.'},
+
+{id:407,sub:'S4',topic:'Python 반복문',freq:4,d:2,
+ q:'다음 Python 코드의 출력 결과는?',
+ code:`s = 0
+for i in range(2, 11, 2):
+    s += i
+print(s)`,
+ ch:['20','30','24','25'],a:1,
+ why:'range(2,11,2)는 2,4,6,8,10을 만들고 그 합은 30입니다. 끝값 11은 포함되지 않습니다.',
+ bad:'① 20은 10을 빼먹은 경우, ③ 24는 시작을 4로 본 경우입니다.',
+ mn:'"range(시작, 끝, 간격) → 끝은 포함하지 않는다"',
+ pt:'range(5)는 0~4, range(1,5)는 1~4입니다. 끝값 미포함이 파이썬 문제의 최대 함정입니다.',
+ rel:'while문과 for문의 변환, break·continue와 조합된 문제도 출제됩니다.'},
+
+{id:408,sub:'S4',topic:'표준 라이브러리',freq:3,d:1,
+ q:'C 언어에서 sqrt(), pow() 같은 수학 함수를 사용하기 위해 포함해야 하는 헤더 파일은?',
+ ch:['stdio.h','stdlib.h','math.h','string.h'],a:2,
+ why:'수학 함수는 math.h에 선언되어 있습니다.',
+ bad:'① 입출력(printf·scanf), ② 동적 메모리·형 변환(malloc·atoi), ④ 문자열 처리(strlen·strcpy) 함수의 헤더입니다.',
+ mn:'"입출력 stdio, 수학 math, 문자열 string, 잡동사니 stdlib"',
+ pt:'각 헤더에 속한 대표 함수를 짝짓는 문제로 나옵니다.',
+ rel:'malloc()으로 할당한 메모리는 free()로 해제해야 메모리 누수가 없습니다.'},
+
+{id:409,sub:'S4',topic:'언어 분류',freq:3,d:1,
+ q:'다음 중 스크립트 언어에 해당하지 않는 것은?',
+ ch:['Python','JavaScript','PHP','C++'],a:3,
+ why:'C++는 컴파일 언어입니다. 스크립트 언어는 별도의 컴파일 없이 인터프리터가 즉시 해석·실행합니다.',
+ bad:'①②③은 모두 인터프리터 방식의 스크립트 언어입니다.',
+ mn:'스크립트 → "파자피루베셸" (Python·JavaScript·PHP·Ruby·Basic·Shell)',
+ pt:'컴파일 언어(C, C++, Java)와 스크립트 언어를 구분하는 문제로 나옵니다.',
+ rel:'객체지향 언어: C++, Java, C#, Python / 절차지향 언어: C, FORTRAN, COBOL, ALGOL'},
+
+{id:410,sub:'S4',topic:'TCP/UDP',freq:5,d:2,
+ q:'비연결형 서비스를 제공하며 신뢰성보다 전송 속도를 우선하는 전송 계층 프로토콜은?',
+ ch:['TCP','UDP','IP','ICMP'],a:1,
+ why:'UDP는 연결 설정 과정과 흐름·오류 제어가 없어 헤더가 작고 빠르므로 실시간 스트리밍이나 DNS에 사용됩니다.',
+ bad:'① TCP는 3-way handshake로 연결을 맺는 신뢰성 있는 프로토콜입니다. ③④는 전송 계층이 아닌 인터넷 계층 프로토콜입니다.',
+ mn:'"TCP = 등기우편(확인·재전송) / UDP = 일반우편(빠르지만 보장 없음)"',
+ pt:'TCP 헤더 20바이트, UDP 헤더 8바이트라는 수치까지 출제됩니다.',
+ rel:'TCP 연결: SYN → SYN+ACK → ACK의 3-way handshake, 해제는 4-way handshake'},
+
+{id:411,sub:'S4',topic:'IPv6',freq:4,d:2,
+ q:'IPv6의 특징으로 옳지 않은 것은?',
+ ch:['주소 길이가 128비트이다','헤더 구조가 IPv4보다 단순하다',
+     '보안 기능(IPSec)이 기본 내장되어 있다','브로드캐스트를 지원한다'],a:3,
+ why:'IPv6에는 브로드캐스트가 없고 대신 애니캐스트(Anycast)가 도입되었습니다. 전송 방식은 유니캐스트·멀티캐스트·애니캐스트 3가지입니다.',
+ bad:'①②③은 모두 IPv6의 정확한 특징입니다.',
+ mn:'IPv6 전송 방식 → "유멀애" (유니캐스트·멀티캐스트·애니캐스트), 브로드캐스트 없음',
+ pt:'"브로드캐스트 지원"은 IPv6 문제에서 거의 항상 오답으로 등장합니다.',
+ rel:'IPv4는 32비트·8비트씩 4부분(10진수), IPv6는 128비트·16비트씩 8부분(16진수, 콜론 구분)'},
+
+{id:412,sub:'S4',topic:'TCP/IP 계층',freq:4,d:2,
+ q:'TCP/IP 4계층에서 IP, ICMP, ARP, IGMP가 속하는 계층은?',
+ ch:['네트워크 액세스 계층','인터넷 계층','전송 계층','응용 계층'],a:1,
+ why:'인터넷 계층은 논리 주소 지정과 경로 설정을 담당하며 IP를 중심으로 ICMP·ARP·RARP·IGMP가 여기 속합니다.',
+ bad:'③ 전송 계층에는 TCP와 UDP가, ④ 응용 계층에는 HTTP·FTP·SMTP·DNS가 속합니다.',
+ mn:'인터넷 계층 → "아이피 아이시엠피 에이알피 아이지엠피" 모두 IP 가족',
+ pt:'ARP는 IP 주소를 MAC 주소로, RARP는 MAC 주소를 IP 주소로 변환한다는 방향이 자주 출제됩니다.',
+ rel:'TCP/IP 4계층과 OSI 7계층의 대응: 네트워크 액세스=물리+데이터링크, 인터넷=네트워크, 응용=세션+표현+응용'},
+
+{id:413,sub:'S4',topic:'프로세스 상태',freq:3,d:3,
+ q:'준비(Ready) 상태의 프로세스가 CPU를 할당받아 실행(Running) 상태로 바뀌는 것을 뜻하는 용어는?',
+ ch:['디스패치(Dispatch)','타임 런 아웃(Time Run Out)','블록(Block)','웨이크 업(Wake Up)'],a:0,
+ why:'디스패치는 준비 큐에 있던 프로세스에 CPU를 배정하는 동작입니다.',
+ bad:'② 타임 런 아웃은 실행 → 준비, ③ 블록은 실행 → 대기, ④ 웨이크 업은 대기 → 준비로의 전이입니다.',
+ mn:'"디스패치는 출동, 타임아웃은 복귀, 블록은 대기, 웨이크업은 기상"',
+ pt:'4가지 전이의 방향을 화살표로 그려 두면 어떤 형태로 나와도 맞힐 수 있습니다.',
+ rel:'PCB(프로세스 제어 블록)에는 프로세스 식별자, 상태, 프로그램 카운터, 레지스터 정보 등이 저장됩니다.'},
+
+{id:414,sub:'S4',topic:'기억장치 배치',freq:4,d:3,
+ q:'기억장치의 빈 공간이 8K, 12K, 20K 순서로 있을 때 10K 프로그램을 최적 적합(Best Fit)으로 배치하면 선택되는 공간은?',
+ ch:['8K','12K','20K','배치 불가'],a:1,
+ why:'최적 적합은 들어갈 수 있는 공간 중 남는 조각이 가장 적은 곳을 고릅니다. 12K에 넣으면 2K만 남아 20K(10K 남음)보다 효율적입니다. 8K는 크기가 작아 들어가지 않습니다.',
+ bad:'③ 20K는 최악 적합(Worst Fit)의 답이고, 최초 적합(First Fit)이라면 앞에서부터 처음 들어가는 12K가 답입니다.',
+ mn:'"최초=앞에서 처음 / 최적=남는 게 가장 적게 / 최악=남는 게 가장 많게"',
+ pt:'세 전략의 답이 우연히 같아지는 경우도 있으니 반드시 남는 공간을 계산해 확인하세요.',
+ rel:'내부 단편화는 할당된 공간 안의 낭비, 외부 단편화는 할당되지 못한 자투리 공간의 낭비입니다.'},
+
+{id:415,sub:'S4',topic:'스래싱',freq:4,d:2,
+ q:'스래싱(Thrashing) 현상을 해결하기 위한 방법으로 적절하지 않은 것은?',
+ ch:['워킹셋을 유지한다','페이지 부재 빈도를 조절한다','부하를 조절한다','다중 프로그래밍 정도를 계속 높인다'],a:3,
+ why:'스래싱은 다중 프로그래밍 정도가 지나치게 높아 페이지 교체에만 시간을 쓰는 현상입니다. 정도를 더 높이면 오히려 악화됩니다.',
+ bad:'①②③은 모두 스래싱을 완화하는 정상적인 대책입니다.',
+ mn:'"스래싱 = 일은 안 하고 페이지만 바꾸는 상태 → 프로그램 수를 줄여야 한다"',
+ pt:'"다중 프로그래밍 정도를 높인다"는 선택지는 대부분 오답입니다.',
+ rel:'워킹셋은 프로세스가 일정 시간 동안 자주 참조하는 페이지 집합으로, 지역성(Locality) 이론에 근거합니다.'},
+
+{id:416,sub:'S4',topic:'모듈 사용',freq:3,d:1,
+ q:'Python에서 외부 모듈을 가져와 사용할 때 쓰는 예약어는?',
+ ch:['include','import','require','using'],a:1,
+ why:'Python은 import 문으로 모듈을 불러옵니다. from 모듈 import 함수 형태도 사용합니다.',
+ bad:'① include는 C/C++, ③ require는 자바스크립트, ④ using은 C#에서 사용합니다.',
+ mn:'"파이썬은 import, C는 include, 자바는 import(패키지)"',
+ pt:'언어별 키워드를 섞어 놓는 문제이므로 각 언어의 대표 문법을 구분해 두세요.',
+ rel:'Python 자료형: list[ ], tuple( ), dict{키:값}, set{ }. 들여쓰기로 블록을 구분합니다.'},
+
+{id:501,sub:'S5',topic:'정보보안 3요소',freq:5,d:1,
+ q:'정보보안의 3대 요소에 해당하지 않는 것은?',
+ ch:['기밀성(Confidentiality)','무결성(Integrity)','가용성(Availability)','책임추적성(Accountability)'],a:3,
+ why:'정보보안 3대 요소는 기밀성·무결성·가용성입니다. 책임추적성은 추가 요소로 분류됩니다.',
+ bad:'① 인가된 사람만 접근, ② 허가 없이 변경 불가, ③ 필요할 때 언제든 사용 가능을 뜻합니다.',
+ mn:'보안 3요소 → "기무가" (기밀성·무결성·가용성) = CIA',
+ pt:'DoS 공격은 가용성, 스니핑은 기밀성, 데이터 변조는 무결성 침해로 연결해 출제됩니다.',
+ rel:'추가 요소: 인증(Authentication), 부인 방지(Non-repudiation), 책임추적성'},
+
+{id:502,sub:'S5',topic:'접근 통제',freq:4,d:2,
+ q:'주체와 객체에 부여된 보안 등급(보안 레이블)을 비교하여 시스템이 강제로 접근을 통제하는 정책은?',
+ ch:['임의적 접근통제(DAC)','강제적 접근통제(MAC)','역할기반 접근통제(RBAC)','접근제어 목록(ACL)'],a:1,
+ why:'MAC은 관리자가 정한 보안 등급에 따라 시스템이 강제로 접근을 결정하므로 군사·기밀 환경에 적합합니다.',
+ bad:'① DAC은 데이터 소유자가 재량으로 권한을 부여하는 방식, ③ RBAC은 사용자의 직무·역할에 따라 권한을 주는 방식입니다.',
+ mn:'"DAC=소유자 마음대로, MAC=관리자가 강제로, RBAC=역할에 따라"',
+ pt:'"보안 레이블", "강제"라는 단어가 나오면 MAC입니다.',
+ rel:'접근통제 3요소: 접근통제 정책, 접근통제 메커니즘, 접근통제 보안 모델(벨-라파듈라, 비바 모델)'},
+
+{id:503,sub:'S5',topic:'침입탐지',freq:3,d:2,
+ q:'침입탐지시스템(IDS)에서 이미 알려진 공격 패턴과 비교하여 침입을 판단하는 방식은?',
+ ch:['오용 탐지(Misuse Detection)','이상 탐지(Anomaly Detection)','혼합 탐지','상태 탐지'],a:0,
+ why:'오용 탐지는 시그니처(공격 패턴 DB)와 대조하므로 오탐률이 낮지만 알려지지 않은 새로운 공격은 잡지 못합니다.',
+ bad:'② 이상 탐지는 정상 행위의 기준에서 벗어나는 행위를 탐지하므로 신종 공격 대응은 가능하지만 오탐이 많습니다.',
+ mn:'"오용=알려진 패턴 대조(시그니처) / 이상=평소와 다르면 의심(행위 기반)"',
+ pt:'각 방식의 장단점(오탐률, 신종 공격 탐지 가능 여부)을 서로 바꿔 놓는 함정이 나옵니다.',
+ rel:'IDS는 탐지, IPS는 탐지와 차단까지 수행. 방화벽은 정책 기반 차단, 허니팟은 유인 시스템입니다.'},
+
+{id:504,sub:'S5',topic:'무선랜 보안',freq:3,d:2,
+ q:'다음 무선랜 보안 규격 중 가장 취약하여 현재 사용이 권장되지 않는 것은?',
+ ch:['WEP','WPA','WPA2','WPA3'],a:0,
+ why:'WEP는 짧은 초기화 벡터와 RC4 알고리즘의 취약점으로 짧은 시간에 키가 노출되어 사실상 폐기되었습니다.',
+ bad:'②③④로 갈수록 암호화가 강화되며, WPA2는 AES 기반 CCMP를 사용합니다.',
+ mn:'무선랜 보안 강도 → "WEP < WPA < WPA2 < WPA3" (숫자가 클수록 안전)',
+ pt:'"가장 안전한 것"과 "가장 취약한 것"을 반대로 묻는 문제가 번갈아 나옵니다.',
+ rel:'무선 공격: 워 드라이빙, 이블 트윈(가짜 AP), 재밍. AP의 SSID 숨김과 MAC 필터링은 보조 수단입니다.'},
+
+{id:505,sub:'S5',topic:'네트워크 공격',freq:4,d:2,
+ q:'네트워크에 흐르는 패킷을 몰래 엿보아 정보를 알아내는 수동적 공격은?',
+ ch:['스푸핑(Spoofing)','스니핑(Sniffing)','피싱(Phishing)','파밍(Pharming)'],a:1,
+ why:'스니핑은 데이터를 훔쳐보기만 하는 수동적 공격으로 기밀성을 침해합니다.',
+ bad:'① 스푸핑은 IP·MAC 주소 등을 위조해 신분을 속이는 능동적 공격입니다.',
+ mn:'"Sniff(냄새 맡다)=엿보기 / Spoof(속이다)=위장하기"',
+ pt:'수동적 공격(도청·트래픽 분석)과 능동적 공격(변조·삽입·서비스 거부)의 분류로도 출제됩니다.',
+ rel:'세션 하이재킹은 인증된 세션을 가로채는 공격, ARP 스푸핑은 MAC 주소를 위조하는 공격입니다.'},
+
+{id:506,sub:'S5',topic:'사회공학 공격',freq:4,d:2,
+ q:'문자메시지(SMS)에 악성 링크를 포함해 보내 개인정보나 금전을 탈취하는 공격은?',
+ ch:['피싱','파밍','스미싱','큐싱'],a:2,
+ why:'스미싱은 SMS와 피싱의 합성어로, 문자메시지의 링크 클릭을 유도해 악성 앱을 설치시키는 공격입니다.',
+ bad:'① 피싱은 주로 이메일·가짜 사이트, ② 파밍은 DNS를 조작해 정상 주소를 입력해도 위조 사이트로 유도, ④ 큐싱은 QR 코드를 이용합니다.',
+ mn:'"SMS=스미싱, QR=큐싱, DNS 조작=파밍, 이메일 미끼=피싱"',
+ pt:'파밍은 "정상 주소를 입력했는데도 가짜 사이트"라는 표현으로 구분합니다.',
+ rel:'랜섬웨어, 봇넷, APT 공격(지속적 표적 공격)도 함께 정리하세요.'},
+
+{id:507,sub:'S5',topic:'악성코드',freq:4,d:3,
+ q:'특정 날짜나 조건이 충족될 때까지 잠복해 있다가 조건이 만족되면 동작하는 악성 프로그램은?',
+ ch:['웜(Worm)','트로이 목마','논리 폭탄(Logic Bomb)','스파이웨어'],a:2,
+ why:'논리 폭탄은 미리 정해 둔 조건이 충족되는 순간 실행되도록 심어 놓은 코드입니다.',
+ bad:'① 웜은 스스로 복제해 네트워크로 확산, ② 트로이 목마는 정상 프로그램으로 위장하지만 자기 복제는 하지 않습니다.',
+ mn:'"웜=스스로 번식 / 트로이=위장 잠입 / 논리폭탄=조건 만족 시 폭발 / 백도어=몰래 뒷문"',
+ pt:'"자기 복제 여부"가 웜과 트로이 목마를 가르는 결정적 기준입니다.',
+ rel:'백도어(트랩도어)는 정상 인증을 우회하는 비밀 통로이며, 루트킷은 침입 흔적을 숨기는 도구 모음입니다.'},
+
+{id:508,sub:'S5',topic:'전자서명',freq:4,d:2,
+ q:'전자서명이 제공하는 기능에 해당하지 않는 것은?',
+ ch:['위조 불가','부인 방지','기밀성','변경 불가'],a:2,
+ why:'전자서명은 송신자의 개인키로 서명하고 누구나 공개키로 검증하므로 내용을 숨기는 기밀성은 제공하지 않습니다.',
+ bad:'①②④와 서명자 인증, 재사용 불가가 전자서명의 5대 기능입니다.',
+ mn:'전자서명 → "위변재인부" (위조불가·변경불가·재사용불가·서명자인증·부인방지) — 기밀성은 없음',
+ pt:'"기밀성"이 선택지에 있으면 거의 정답(아닌 것)입니다.',
+ rel:'기밀성이 필요하면 전자봉투를 사용합니다. 공개키 기반구조(PKI)와 인증서(X.509)도 함께 출제됩니다.'},
+
+{id:509,sub:'S5',topic:'애자일 방법론',freq:4,d:2,
+ q:'짝 프로그래밍, 테스트 주도 개발, 소규모 릴리즈를 실천 항목으로 하는 개발 방법론은?',
+ ch:['XP(eXtreme Programming)','Scrum','Lean','RUP'],a:0,
+ why:'XP는 5가지 가치와 12가지 실천 항목을 통해 고객 요구 변화에 민첩하게 대응하는 애자일 방법론입니다.',
+ bad:'② Scrum은 스프린트·백로그 중심의 관리 프레임워크, ④ RUP는 반복적이지만 애자일보다 무거운 통합 프로세스입니다.',
+ mn:'XP 5가치 → "용단피존의" (용기·단순성·피드백·존중·의사소통)',
+ pt:'"짝 프로그래밍(Pair Programming)"이라는 단어가 나오면 100% XP입니다.',
+ rel:'XP 실천 항목: 짝 프로그래밍, 지속적 통합, 리팩토링, 테스트 주도 개발, 공동 코드 소유, 계획 게임'},
+
+{id:510,sub:'S5',topic:'스크럼',freq:4,d:2,
+ q:'스크럼(Scrum)에서 제품에 필요한 모든 요구사항을 우선순위에 따라 정리한 목록은?',
+ ch:['스프린트','제품 백로그','번다운 차트','데일리 스크럼'],a:1,
+ why:'제품 백로그는 개발할 기능과 요구사항을 우선순위대로 나열한 목록이며, 여기서 선별해 스프린트 백로그를 만듭니다.',
+ bad:'① 스프린트는 2~4주의 반복 개발 주기, ③ 번다운 차트는 남은 작업량 추이 그래프, ④ 데일리 스크럼은 매일 15분 회의입니다.',
+ mn:'"백로그=할 일 목록 / 스프린트=달리는 기간 / 번다운=남은 일 그래프"',
+ pt:'스크럼 팀 구성: 제품 책임자(PO), 스크럼 마스터, 개발팀. 각 역할을 묻는 문제도 나옵니다.',
+ rel:'스프린트 회고(Retrospective)는 스프린트 종료 후 개선점을 찾는 회의입니다.'},
+
+{id:511,sub:'S5',topic:'일정 관리',freq:4,d:3,
+ q:'PERT/CPM에서 프로젝트의 전체 완료 기간을 결정하며 여유 시간이 없는 가장 긴 경로는?',
+ ch:['임계 경로(Critical Path)','간트 차트','WBS','번다운 차트'],a:0,
+ why:'임계 경로는 시작에서 종료까지의 경로 중 소요 시간이 가장 긴 경로로, 이 경로가 지연되면 프로젝트 전체가 지연됩니다.',
+ bad:'② 간트 차트는 막대로 일정을 표현하는 도구, ③ WBS는 작업을 계층적으로 분해한 구조도입니다.',
+ mn:'"임계 경로 = 가장 오래 걸리는 길 = 여유 시간 0"',
+ pt:'네트워크 그림을 주고 임계 경로의 소요 일수를 계산하게 하는 문제로 확장됩니다.',
+ rel:'PERT는 낙관치·기대치·비관치로 기간을 추정(불확실한 프로젝트), CPM은 경험 기반 확정 기간을 사용합니다.'},
+
+{id:512,sub:'S5',topic:'위험 관리',freq:3,d:2,
+ q:'소프트웨어 프로젝트 위험 관리의 절차로 옳은 것은?',
+ ch:['위험 식별 → 위험 분석 → 위험 계획 → 위험 감시','위험 분석 → 위험 식별 → 위험 감시 → 위험 계획',
+     '위험 계획 → 위험 식별 → 위험 분석 → 위험 감시','위험 감시 → 위험 분석 → 위험 식별 → 위험 계획'],a:0,
+ why:'무엇이 위험인지 찾아내고(식별), 발생 확률과 영향을 평가하고(분석), 대응책을 세우고(계획), 지속적으로 관찰합니다(감시).',
+ bad:'식별이 가장 먼저, 감시가 마지막이라는 두 축만 잡으면 정답이 보입니다.',
+ mn:'위험 관리 → "식분계감" (식별·분석·계획·감시)',
+ pt:'위험 대응 전략 4가지도 함께 나옵니다. 회피, 전가, 완화, 수용',
+ rel:'위험의 종류: 프로젝트 위험(일정·인력), 기술 위험(설계·구현), 비즈니스 위험(시장·예산)'},
+
+{id:513,sub:'S5',topic:'가상화',freq:4,d:2,
+ q:'하나의 물리적 서버 위에서 여러 개의 운영체제를 동시에 실행할 수 있게 해 주는 가상화 소프트웨어는?',
+ ch:['하이퍼바이저','컴파일러','로드 밸런서','프록시 서버'],a:0,
+ why:'하이퍼바이저는 물리 자원을 논리적으로 나누어 여러 가상 머신에 배분하고 격리합니다.',
+ bad:'③ 로드 밸런서는 트래픽 분산 장비, ④ 프록시 서버는 대리 접속을 처리하는 중계 서버입니다.',
+ mn:'"하이퍼바이저 = 여러 OS를 거느리는 관리자"',
+ pt:'Type 1(베어메탈, 하드웨어 위에 직접)과 Type 2(호스트 OS 위에서 동작)의 구분이 출제됩니다.',
+ rel:'도커(컨테이너 기반, OS 커널 공유로 가볍다), 쿠버네티스(컨테이너 오케스트레이션)와 비교해 정리하세요.'},
+
+{id:514,sub:'S5',topic:'빅데이터',freq:3,d:2,
+ q:'빅데이터의 기본 특성인 3V에 해당하지 않는 것은?',
+ ch:['Volume(규모)','Variety(다양성)','Velocity(속도)','Version(버전)'],a:3,
+ why:'3V는 규모·다양성·속도입니다. Version은 포함되지 않습니다.',
+ bad:'여기에 Value(가치)와 Veracity(정확성)를 더하면 5V가 됩니다.',
+ mn:'빅데이터 → "규다속" (Volume·Variety·Velocity) + 가치·정확성 = 5V',
+ pt:'5V까지 묻는 문제도 있으므로 Value와 Veracity를 함께 기억하세요.',
+ rel:'관련 기술: 하둡(HDFS·맵리듀스), NoSQL, 데이터 마이닝, 타조(Tajo), 스쿱(Sqoop)'},
+
+{id:515,sub:'S5',topic:'네트워크 신기술',freq:4,d:3,
+ q:'네트워크 장비의 제어 평면과 데이터 평면을 분리하여 소프트웨어로 네트워크를 제어하는 기술은?',
+ ch:['SDN','NFV','VPN','VLAN'],a:0,
+ why:'SDN(Software Defined Network)은 하드웨어에 종속되지 않고 중앙 컨트롤러가 소프트웨어로 트래픽 경로를 제어합니다.',
+ bad:'② NFV는 네트워크 기능을 가상화하는 기술, ③ VPN은 공중망에 가상 사설망을 구축하는 기술입니다.',
+ mn:'"SDN = Software Defined = 소프트웨어가 정의하는 네트워크"',
+ pt:'"제어 평면과 데이터 평면의 분리"는 SDN의 정의 문장입니다.',
+ rel:'함께 나오는 용어: 메시 네트워크, 애드혹 네트워크, NDN, 피코넷, 스마트 그리드, 저궤도 위성통신'},
+
+{id:516,sub:'S5',topic:'시큐어 코딩',freq:4,d:2,
+ q:'Secure SDLC 방법론에 해당하지 않는 것은?',
+ ch:['CLASP','SDL','Seven Touchpoints','Scrum'],a:3,
+ why:'Scrum은 애자일 개발 관리 프레임워크이며 보안 개발 생명주기 방법론이 아닙니다.',
+ bad:'① 활동 중심의 보안 개발 프로세스, ② 마이크로소프트의 보안 개발 생명주기, ③ 소프트웨어 보안 모범 사례 7개 관점입니다.',
+ mn:'Secure SDLC → "클래스프·에스디엘·세븐터치포인트"',
+ pt:'시큐어 코딩 취약점 분류 7가지도 함께 출제됩니다. 입력 데이터 검증 및 표현, 보안 기능, 시간 및 상태, 에러 처리, 코드 오류, 캡슐화, API 오용',
+ rel:'SQL 삽입, XSS, 버퍼 오버플로는 모두 "입력 데이터 검증 및 표현" 취약점에 속합니다.'},
+
+{id:517,sub:'S5',topic:'백업',freq:3,d:2,
+ q:'마지막 백업 이후 변경된 데이터만 백업하여 백업 시간과 용량을 최소화하는 방식은?',
+ ch:['전체 백업','차등 백업','증분 백업','실시간 백업'],a:2,
+ why:'증분 백업은 직전 백업 이후 변경분만 저장하므로 백업은 가장 빠르지만, 복구할 때는 전체 백업과 모든 증분을 순서대로 적용해야 해 시간이 오래 걸립니다.',
+ bad:'② 차등 백업은 마지막 "전체 백업" 이후 변경분을 모두 저장하므로 복구는 빠르지만 용량이 점점 커집니다.',
+ mn:'"증분=직전 백업 기준(백업 빠름, 복구 느림) / 차등=전체 백업 기준(백업 느림, 복구 빠름)"',
+ pt:'기준점이 "직전 백업"인지 "마지막 전체 백업"인지가 두 방식을 가르는 핵심입니다.',
+ rel:'RTO(목표 복구 시간), RPO(목표 복구 시점), BCP(업무 연속성 계획), DRS(재해 복구 시스템)'}
+];
+
+/* ══════════ 저장 ══════════ */
+const KEY='jbgisa_cbt_v1';
+const store={
+  async get(){
+    try{
+      if(window.storage){const r=await window.storage.get(KEY);return r?JSON.parse(r.value):null;}
+      return JSON.parse(localStorage.getItem(KEY)||'null');
+    }catch(e){return null;}
+  },
+  async set(v){
+    try{
+      if(window.storage){await window.storage.set(KEY,JSON.stringify(v));return;}
+      localStorage.setItem(KEY,JSON.stringify(v));
+    }catch(e){}
+  }
+};
+let DB={wrong:{},solved:{},sessions:[]};   // wrong[topic]=횟수, solved[id]={ok,no}
+
+/* ══════════ 상태 ══════════ */
+let S=null;
+const app=document.getElementById('app'), foot=document.getElementById('foot'),
+      footIn=document.getElementById('footIn'), omrBox=document.getElementById('omrBox'),
+      mid=document.getElementById('mid'), clockEl=document.getElementById('clock'),
+      quitBtn=document.getElementById('quit');
+const CIR=['①','②','③','④'];
+const DL={1:'기본',2:'실전',3:'고난도'};
+const esc=s=>String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+const stars=n=>'★'.repeat(n)+'☆'.repeat(5-n);
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]];}return a;};
+
+/* ══════════ 홈 ══════════ */
+function home(){
+  S=null; omrBox.innerHTML=''; foot.hidden=true; mid.textContent='';
+  clockEl.hidden=true; quitBtn.hidden=true;
+  const tot=Object.keys(DB.solved).length;
+  let ok=0,no=0; for(const k in DB.solved){ok+=DB.solved[k].ok;no+=DB.solved[k].no;}
+  const rate=(ok+no)?Math.round(ok/(ok+no)*100):0;
+  const wrongIds=Object.keys(DB.solved).filter(k=>DB.solved[k].no>0).length;
+  const weakTopics=Object.entries(DB.wrong).filter(([,v])=>v>=3).sort((a,b)=>b[1]-a[1]);
+
+  let h=`<h1>합격까지<br>남은 건 <em>오답</em>뿐</h1>
+  <p class="lede">문제 ${Q.length}개 · 5과목 · 난이도 3단계 · 풀면 바로 해설과 암기법</p>`;
+
+  if(weakTopics.length){
+    h+=`<div class="alert">⚠ <b>${esc(weakTopics[0][0])}</b> 유형을 <b>${weakTopics[0][1]}번</b> 틀렸습니다. 이 유형만 몰아서 다시 푸는 것이 지금 가장 빠른 길입니다.
+    <div style="margin-top:8px"><button class="btn g" style="padding:8px 12px;font-size:13px" onclick="startTopic('${esc(weakTopics[0][0])}')">이 유형만 다시 풀기</button></div></div>`;
+  }
+
+  h+=`<h2>학습 모드</h2>
+  <button class="menu" onclick="start('mock')"><div class="t">모의고사<span class="k">20문항</span></div>
+    <div class="d">실제 시험 비율로 출제 · 마지막에 한꺼번에 채점</div></button>
+  <button class="menu" onclick="start('study')"><div class="t">전체 학습<span class="k">${Q.length}문항</span></div>
+    <div class="d">한 문항씩 풀고 바로 해설 확인</div></button>
+  <button class="menu" onclick="start('wrong')" ${wrongIds?'':'disabled'}><div class="t">오답만 다시 풀기<span class="k">${wrongIds}문항</span></div>
+    <div class="d">${wrongIds?'한 번이라도 틀린 문제만 모았습니다':'아직 틀린 문제가 없습니다'}</div></button>
+
+  <h2>과목별</h2>`;
+  for(const k in SUBS){
+    const g=Q.filter(q=>q.sub===k);
+    const c=[1,2,3].map(d=>g.filter(q=>q.d===d).length);
+    h+=`<button class="menu" onclick="start('sub','${k}')"><div class="t">${SUBS[k]}<span class="k">${g.length}문항</span></div>
+    <div class="d">기본 ${c[0]} · 실전 ${c[1]} · 고난도 ${c[2]}</div></button>`;
+  }
+  h+=`<h2>난이도별</h2>`;
+  [[1,'기본','개념 정의와 용어 · 무조건 맞혀야 하는 문항'],
+   [2,'실전','실제 출제 수준 · 합격을 가르는 구간'],
+   [3,'고난도','계산·비교·함정 · 고득점용 문항']].forEach(([d,nm,ds])=>{
+    const n=Q.filter(q=>q.d===d).length;
+    h+=`<button class="menu" onclick="start('diff',${d})"><div class="t"><span class="tag lv${d}" style="margin-right:2px">${nm}</span><span class="k">${n}문항</span></div>
+    <div class="d">${ds}</div></button>`;
+  });
+
+  h+=`<h2>누적 기록</h2>
+  <div class="card"><div style="display:flex;align-items:flex-end;gap:14px">
+    <div><div class="score">${rate}<span>%</span></div>
+    <div style="font-size:13px;color:var(--soft);margin-top:6px">누적 정답률 · 푼 문항 ${tot}개</div></div>
+  </div>`;
+  const nt=Object.entries(DB.wrong).sort((a,b)=>b[1]-a[1]);
+  if(nt.length){
+    h+=`<div style="margin-top:14px"><div style="font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;color:var(--soft);margin-bottom:8px">오답 노트 · 유형별</div>`;
+    nt.slice(0,12).forEach(([t,v])=>{
+      const sub=(Q.find(q=>q.topic===t)||{}).sub;
+      h+=`<div class="note"><div class="h">${esc(t)}<b>${v}회</b></div>
+      <div class="s">${SUBS[sub]||''}${v>=3?' · 집중 보강 필요':''}</div></div>`;
+    });
+    h+=`</div>`;
+  }else{
+    h+=`<div class="empty">아직 오답 노트가 비어 있습니다.<br>모의고사부터 시작해 약점을 찾아보세요.</div>`;
+  }
+  h+=`</div><div style="height:10px"></div>`;
+  app.innerHTML=h;
+  window.scrollTo(0,0);
+}
+
+/* ══════════ 세션 시작 ══════════ */
+function pickMock(){
+  // 실제 시험 난이도 분포: 기본 8 · 실전 9 · 고난도 3
+  const bag=shuffle([1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,3,3,3]);
+  const used=new Set(); let out=[]; let bi=0;
+  for(const k of ['S1','S2','S3','S4','S5']){
+    const pool=shuffle(Q.filter(q=>q.sub===k));
+    for(let n=0;n<4;n++){
+      const want=bag[bi++];
+      let pick=pool.find(q=>!used.has(q.id)&&q.d===want)
+             ||pool.find(q=>!used.has(q.id)&&Math.abs(q.d-want)===1)
+             ||pool.find(q=>!used.has(q.id));
+      if(pick){used.add(pick.id);out.push(pick);}
+    }
+  }
+  return shuffle(out);
+}
+function start(mode,sub){
+  let list;
+  if(mode==='mock') list=pickMock();
+  else if(mode==='study') list=shuffle(Q);
+  else if(mode==='sub') list=shuffle(Q.filter(q=>q.sub===sub));
+  else if(mode==='wrong') list=shuffle(Q.filter(q=>DB.solved[q.id]&&DB.solved[q.id].no>0));
+  else if(mode==='diff') list=shuffle(Q.filter(q=>q.d===sub));
+  if(!list.length){home();return;}
+  S={mode,list,i:0,ans:new Array(list.length).fill(null),shown:new Array(list.length).fill(false),t0:Date.now()};
+  quitBtn.hidden=false; quitBtn.onclick=()=>{if(confirm('나가면 이번 회차 기록은 저장되지 않습니다. 나가시겠습니까?'))home();};
+  if(mode==='mock'){clockEl.hidden=false;tick();}
+  render();
+}
+function startTopic(t){
+  const list=shuffle(Q.filter(q=>q.topic===t));
+  if(!list.length){home();return;}
+  S={mode:'study',list,i:0,ans:new Array(list.length).fill(null),shown:new Array(list.length).fill(false),t0:Date.now()};
+  quitBtn.hidden=false; quitBtn.onclick=()=>home();
+  render();
+}
+let timer=null;
+function tick(){
+  clearInterval(timer);
+  timer=setInterval(()=>{
+    if(!S||S.mode!=='mock'){clearInterval(timer);return;}
+    const s=Math.floor((Date.now()-S.t0)/1000);
+    clockEl.textContent=String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');
+  },1000);
+}
+
+/* ══════════ 문제 화면 ══════════ */
+function render(){
+  const q=S.list[S.i], sel=S.ans[S.i], open=S.shown[S.i];
+  mid.textContent=(S.i+1)+' / '+S.list.length;
+
+  // OMR
+  omrBox.innerHTML='<div class="omr"><b>답 안 마 킹</b>'+S.list.map((_,k)=>{
+    let c='bub';
+    if(k===S.i)c+=' now';
+    if(S.ans[k]!=null){
+      if(S.mode==='mock'||!S.shown[k])c+=' mk';
+      else c+=(S.ans[k]===S.list[k].a?' ok':' no');
+    }
+    return `<div class="${c}"></div>`;
+  }).join('')+'</div>';
+
+  let h=`<div class="card">
+    <div class="eyebrow"><span class="tag">${SUBS[q.sub]}</span><span class="tag">${esc(q.topic)}</span><span class="tag lv${q.d}">${DL[q.d]}</span>
+    ${open?`<span class="stars" title="출제빈도">${stars(q.freq)}</span>`:''}</div>
+    <p class="qtext"><span class="qno">${S.i+1}.</span> ${esc(q.q)}</p>
+    ${q.code?`<pre>${esc(q.code)}</pre>`:''}`;
+
+  q.ch.forEach((c,k)=>{
+    let cls='ch';
+    if(open){
+      if(k===q.a)cls+=' rOk'; else if(k===sel)cls+=' rNo';
+    }else if(k===sel)cls+=' sel';
+    h+=`<button class="${cls}" ${open?'disabled':''} onclick="pick(${k})">
+      <span class="n">${CIR[k]}</span><span>${esc(c)}</span></button>`;
+  });
+
+  if(open){
+    const good=sel===q.a;
+    h+=`<div class="verdict ${good?'vOk':'vNo'}">${good?'정답입니다':'틀렸습니다'} · 정답 ${CIR[q.a]}</div>
+    <dl class="ex">
+      <div class="row"><dt>왜 정답인가</dt><dd>${esc(q.why)}</dd></div>
+      <div class="row"><dt>오답 분석</dt><dd>${esc(q.bad)}</dd></div>
+      <div class="row mn"><dt>암기법</dt><dd>${esc(q.mn)}</dd></div>
+      <div class="row"><dt>시험 포인트</dt><dd>${esc(q.pt)}</dd></div>
+      <div class="row"><dt>함께 나오는 개념</dt><dd>${esc(q.rel)}</dd></div>
+      <div class="row"><dt>출제 빈도</dt><dd><span style="color:var(--gold)">${stars(q.freq)}</span> ${q.freq>=5?'매우 중요 · 매회 출제급':q.freq===4?'중요':'보통'}</dd></div>
+    </dl>`;
+  }
+  h+=`</div>`;
+  app.innerHTML=h;
+
+  // 하단 버튼
+  foot.hidden=false;
+  const last=S.i===S.list.length-1;
+  if(S.mode==='mock'){
+    footIn.innerHTML=`${S.i>0?'<button class="btn g" onclick="go(-1)">이전</button>':''}
+    ${last?`<button class="btn p" onclick="grade()">채점하기</button>`
+          :`<button class="btn p" onclick="go(1)">다음 문항</button>`}`;
+  }else{
+    footIn.innerHTML= open
+      ? (last?`<button class="btn p" onclick="grade()">결과 보기</button>`:`<button class="btn p" onclick="go(1)">다음 문항</button>`)
+      : `<button class="btn p" id="chk" onclick="check()" ${sel==null?'disabled':''}>확인</button>`;
+  }
+  window.scrollTo(0,0);
+}
+function pick(k){
+  S.ans[S.i]=k;
+  if(S.mode==='mock'){render();}
+  else{
+    document.querySelectorAll('.ch').forEach((el,i)=>el.classList.toggle('sel',i===k));
+    const b=document.getElementById('chk'); if(b)b.disabled=false;
+    omrBox.querySelectorAll('.bub')[S.i].classList.add('mk');
+  }
+}
+function check(){ if(S.ans[S.i]==null)return; S.shown[S.i]=true; record(S.list[S.i],S.ans[S.i]); render(); }
+function go(d){ const n=S.i+d; if(n<0||n>=S.list.length)return; S.i=n; render(); }
+
+function record(q,sel){
+  const r=DB.solved[q.id]||{ok:0,no:0};
+  if(sel===q.a)r.ok++; else {r.no++; DB.wrong[q.topic]=(DB.wrong[q.topic]||0)+1;}
+  DB.solved[q.id]=r; store.set(DB);
+}
+
+/* ══════════ 채점 ══════════ */
+function grade(){
+  clearInterval(timer); clockEl.hidden=true;
+  if(S.mode==='mock') S.list.forEach((q,i)=>{ if(!S.shown[i]){S.shown[i]=true; record(q,S.ans[i]);} });
+
+  const per={}; for(const k in SUBS)per[k]={t:0,c:0};
+  let c=0;
+  S.list.forEach((q,i)=>{per[q.sub].t++; if(S.ans[i]===q.a){per[q.sub].c++;c++;}});
+  const score=Math.round(c/S.list.length*100);
+  const el=Math.floor((Date.now()-S.t0)/1000);
+
+  const active=Object.entries(per).filter(([,v])=>v.t>0)
+    .map(([k,v])=>({k,p:Math.round(v.c/v.t*100),...v}));
+  const fail=active.filter(x=>x.p<40);
+  const weakest=active.slice().sort((a,b)=>a.p-b.p)[0];
+
+  let judge,jc;
+  if(score>=70&&!fail.length){judge='합격 가능성 높음';jc='j1';}
+  else if(score>=60&&!fail.length){judge='합격선 · 방심하면 위험';jc='j2';}
+  else if(fail.length){judge='과락 위험 · 즉시 보강 필요';jc='j3';}
+  else{judge='불합격권 · 기본 개념부터';jc='j3';}
+
+  omrBox.innerHTML=''; mid.textContent='결과';
+  let h=`<div class="card">
+    <div style="font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;color:var(--soft)">채점 결과</div>
+    <div class="score" style="margin-top:6px">${score}<span>/100</span></div>
+    <div style="font-size:13.5px;color:var(--soft);margin-top:6px">${c} / ${S.list.length}문항 정답 · 소요 ${Math.floor(el/60)}분 ${el%60}초</div>
+    <div><span class="judge ${jc}">${judge}</span></div>
+    <div style="font-size:12.5px;color:var(--soft);margin-top:10px;line-height:1.6">필기 합격 기준 = 전 과목 평균 60점 이상 <b>그리고</b> 과목별 40점 이상</div>
+  </div>
+
+  <div class="card"><div style="font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;color:var(--soft);margin-bottom:6px">과목별 정답률 · 세로선은 과락선 40%</div>`;
+  active.forEach(x=>{
+    h+=`<div class="sb"><div class="lb">${SUBS[x.k]}<b>${x.c}/${x.t} · ${x.p}%</b></div>
+    <div class="track"><div class="fill ${x.p<40?'bad':''}" style="width:${Math.max(x.p,2)}%"></div></div></div>`;
+  });
+  h+=`<div style="border-top:1px dotted var(--rule);margin-top:14px;padding-top:12px;font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;color:var(--soft)">난이도별</div>`;
+  [1,2,3].forEach(d=>{
+    const g=S.list.map((q,i)=>({q,i})).filter(x=>x.q.d===d);
+    if(!g.length)return;
+    const cc=g.filter(x=>S.ans[x.i]===x.q.a).length, pp=Math.round(cc/g.length*100);
+    h+=`<div class="sb"><div class="lb"><span class="tag lv${d}">${DL[d]}</span><b>${cc}/${g.length} · ${pp}%</b></div>
+    <div class="track"><div class="fill ${pp<40?'bad':''}" style="width:${Math.max(pp,2)}%"></div></div></div>`;
+  });
+  h+=`</div>`;
+
+  // 약점 진단
+  h+=`<div class="alert">`;
+  if(weakest&&weakest.p<100){
+    h+=`<b>${SUBS[weakest.k]}</b>에서 계속 실수하고 있습니다. (${weakest.c}/${weakest.t})<br>`;
+  }
+  const topics=S.list.filter((q,i)=>S.ans[i]!==q.a).map(q=>q.topic);
+  const uniq=[...new Set(topics)];
+  if(uniq.length) h+=`오늘 무너진 유형: ${uniq.map(esc).join(' · ')}<br>`;
+  const rep=Object.entries(DB.wrong).filter(([,v])=>v>=3).map(([t])=>t);
+  if(rep.length) h+=`<b>3회 이상 반복 오답:</b> ${rep.map(esc).join(' · ')} → 유형별 집중 반복이 필요합니다.`;
+  if(!uniq.length) h+=`틀린 문항이 없습니다. 다음 회차는 난도를 올려 더 많은 문항으로 도전하세요.`;
+  h+=`</div>`;
+
+  // 오답 다시보기
+  const wrongs=S.list.map((q,i)=>({q,sel:S.ans[i]})).filter(x=>x.sel!==x.q.a);
+  if(wrongs.length){
+    h+=`<h2>오답 다시보기 · ${wrongs.length}문항</h2>`;
+    wrongs.forEach((x,n)=>{
+      h+=`<div class="acc"><button onclick="this.parentNode.classList.toggle('open')">
+        <span class="n">${String(n+1).padStart(2,'0')}</span>
+        <span><b>${SUBS[x.q.sub]} · ${esc(x.q.topic)}</b><br>${esc(x.q.q)}</span></button>
+        <div class="body">
+        <div style="font-size:13.5px;margin:2px 0 10px">내 답 ${x.sel==null?'무응답':CIR[x.sel]} → 정답 <b style="color:var(--ok)">${CIR[x.q.a]} ${esc(x.q.ch[x.q.a])}</b></div>
+        <dl class="ex" style="border-top:1px solid var(--rule)">
+          <div class="row"><dt>왜 정답인가</dt><dd>${esc(x.q.why)}</dd></div>
+          <div class="row mn"><dt>암기법</dt><dd>${esc(x.q.mn)}</dd></div>
+          <div class="row"><dt>시험 포인트</dt><dd>${esc(x.q.pt)}</dd></div>
+        </dl></div></div>`;
+    });
+  }
+
+  // 합격 코치 · 핵심 5
+  const key=S.list.slice().sort((a,b)=>b.freq-a.freq).slice(0,5);
+  h+=`<h2>합격 코치 · 시험장에서 반드시 맞혀야 할 5가지</h2><div class="card">`;
+  key.forEach((q,n)=>{
+    h+=`<div class="row" style="grid-template-columns:22px 1fr">
+      <dt style="font-family:var(--disp);font-size:16px;color:var(--mark)">${n+1}</dt>
+      <dd><b>${esc(q.topic)}</b> <span style="color:var(--gold);font-size:11px">${stars(q.freq)}</span><br>
+      <span style="color:var(--mark);font-weight:700">${esc(q.mn)}</span></dd></div>`;
+  });
+  h+=`</div><div style="height:10px"></div>`;
+
+  app.innerHTML=h;
+  footIn.innerHTML=`<button class="btn g" onclick="home()">홈으로</button>
+  ${wrongs.length?`<button class="btn p" onclick="start('wrong')">오답만 다시 풀기</button>`:`<button class="btn p" onclick="start('mock')">한 번 더</button>`}`;
+  quitBtn.hidden=true;
+  DB.sessions.push({d:Date.now(),score,n:S.list.length}); store.set(DB);
+  window.scrollTo(0,0);
+}
+
+/* ══════════ 부팅 ══════════ */
+(async()=>{
+  const d=await store.get();
+  if(d){DB.wrong=d.wrong||{};DB.solved=d.solved||{};DB.sessions=d.sessions||[];}
+  home();
+})();
+</script>
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
+}
+</script>
+</body>
+</html>

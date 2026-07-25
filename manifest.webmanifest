@@ -1,0 +1,17 @@
+{
+  "name": "정처기 CBT · 오답노트",
+  "short_name": "정처기 CBT",
+  "description": "정보처리기사 필기 문제풀이와 오답노트. 125문항, 5과목, 난이도 3단계.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#EEF1F5",
+  "theme_color": "#16233C",
+  "lang": "ko",
+  "icons": [
+    { "src": "./icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "./icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "./icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
